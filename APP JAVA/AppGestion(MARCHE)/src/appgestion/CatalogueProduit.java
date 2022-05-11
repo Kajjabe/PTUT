@@ -7,7 +7,7 @@ package appgestion;
 
 import java.sql.Statement;
 import java.sql.Connection;
-import net.proteanit.sql.DbUtils;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +16,7 @@ import javax.management.Query;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.proteanit.sql.DbUtils;
 //import org.apache.commons.dbutils.DbUtils;
 
 /**
@@ -480,14 +481,14 @@ public class CatalogueProduit extends javax.swing.JFrame {
 
             con = DriverManager.getConnection("jdbc:derby://localhost:1527/test", "root","root");
             PreparedStatement add = con.prepareStatement("insert into PRODUIT values (?,?,?,?,?,?,?,?,?,?,?)");
-            add.setInt(1,Integer.valueOf(produitIdTf.getText())); //1:26:04 revenir a la bdd
+            add.setInt(1,Integer.valueOf(produitIdTf.getText())); 
             add.setString(2,titreTf.getText());
             add.setString(3,auteurTf.getText());
             add.setString(4,editeurTf.getText());
             add.setString(5,dateTf.getText()); //peut etre format different
             add.setString(6,resumeTf.getText());
-            add.setString(7,prixTf.getText()); //peut etre faire comme le 1 mais pour Double
-            add.setString(8,remiseTf.getText());//peut etre faire comme le 1 mais pour Double
+            add.setString(7,prixTf.getText()); 
+            add.setString(8,remiseTf.getText());
             add.setString(9,quantiteTf.getText());
             add.setString(10,categorieCb.getSelectedItem().toString());
             add.setString(11,sousCategorieCb.getSelectedItem().toString());
@@ -509,7 +510,7 @@ public class CatalogueProduit extends javax.swing.JFrame {
     }//GEN-LAST:event_ajouterBtnActionPerformed
 
     private void menuBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBtnMouseClicked
-        new Login().setVisible(true); //peut etre changer en Accueil au lieu de Login
+        new Menu().setVisible(true); 
         this.dispose();
     }//GEN-LAST:event_menuBtnMouseClicked
 

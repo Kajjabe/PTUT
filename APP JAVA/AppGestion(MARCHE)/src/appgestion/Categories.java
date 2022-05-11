@@ -482,7 +482,7 @@ public void selectSousCategorie(){
 
             con = DriverManager.getConnection("jdbc:derby://localhost:1527/test", "root","root");
             PreparedStatement add = con.prepareStatement("insert into SOUSCATEGORIE values (?,?)");
-            add.setInt(1,Integer.valueOf(sousCategorieIdTf.getText())); //1:26:04 revenir a la bdd
+            add.setInt(1,Integer.valueOf(sousCategorieIdTf.getText()));
             add.setString(2,nomSousCategorieTf.getText());
 
             int ligne = add.executeUpdate();
