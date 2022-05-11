@@ -5,6 +5,9 @@
  */
 package metier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author pc
@@ -21,4 +24,14 @@ package metier;
         public String getNom() {
             return nom;
         }
+        public static List<String> getLesSousCategoriesJeunesse() {
+
+        List<String> ListeDesSousCategoriesJeunesse = new ArrayList<>();
+        for (SousCategorieJeunesse c : SousCategorieJeunesse.values()) {
+            ListeDesSousCategoriesJeunesse.add(c.getNom());//bizarre selon patrick ListeDesCategories.add(getNomCategorie);
+        }
+
+        return ListeDesSousCategoriesJeunesse;
+
+    }
     }

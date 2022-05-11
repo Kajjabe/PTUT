@@ -5,6 +5,9 @@
  */
 package metier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author pc
@@ -21,4 +24,15 @@ public enum SousCategorieBDEtManga {
         public String getNom() {
             return nom;
         }
+        
+        public static List<String> getLesSousCategoriesBDEtManga() {
+
+        List<String> ListeDesSousCategoriesBDEtManga = new ArrayList<>();
+        for (SousCategorieBDEtManga c : SousCategorieBDEtManga.values()) {
+            ListeDesSousCategoriesBDEtManga.add(c.getNom());//bizarre selon patrick ListeDesCategories.add(getNomCategorie);
+        }
+
+        return ListeDesSousCategoriesBDEtManga;
+
+    }
     }

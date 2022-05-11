@@ -37,13 +37,9 @@ public enum CategorieProduit {
         }
     
  
-    //obtenir la un tableau des noms des catégories 
+    //obtenir liste des noms des catégories 
     public static List<String> getLesCategoriesProduit() {
-        // String auteur, String editeur, String description, String annee, double prix, double remise, boolean enStock, int quantite, String img) {
-        //Produit p;
-      
-
-        //p = new Produit("Kentaro","Meian","blabla","1997",9.7,0,true,12,"chemin");
+ 
         
         List<String> ListeDesCategories = new ArrayList<>();
         for (CategorieProduit c : CategorieProduit.values()) {

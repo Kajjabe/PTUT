@@ -10,7 +10,12 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import metier.CategorieProduit;
 import metier.Produit;
+import metier.SousCategorieArtEtCulture;
+import metier.SousCategorieBDEtManga;
+import metier.SousCategorieJeunesse;
+import metier.SousCategorieLitterature;
 
 /**
  *
@@ -22,18 +27,28 @@ public class FenAcceuil extends javax.swing.JFrame {
      * Creates new form FenAcceuil
      */
     
-    private static List<Produit> lesProduits;
 
+
+    private static List<Produit> lesProduits;
     
-    //Création du modèle de cb_category
-    //private ComboBoxModel<String> modeleDesCategories= new DefaultComboBoxModel( tabCategories );
+    private Object[] tabCategories = CategorieProduit.getLesCategoriesProduit().toArray();
+    //= SousCategorieArtEtCulture.getLesSousCategoriesArtEtCulture().toArray();
+    private Object[] tabSousCategoriesArtEtCulture;  
+   private Object[] tabSousCategoriesLitterature;// = SousCategorieLitterature.getLesSousCategoriesLitterature().toArray();
+   private Object[] tabSousCategoriesJeunesse;  //= SousCategorieJeunesse.getLesSousCategoriesJeunesse().toArray();
+   private Object[] tabSousCategoriesBDEtManga; // = SousCategorieBDEtManga.getLesSousCategoriesBDEtManga().toArray();
+    private ComboBoxModel<String> modeleDesCategories = new DefaultComboBoxModel(tabCategories); //il faut placer dans variable tabCat le tableau des catégories
+   private ComboBoxModel<String> modeleDesSousCategories = new DefaultComboBoxModel();// = new DefaultComboBoxModel(tabSousCategoriesArtEtCulture); 
     
-    
-   // private ComboBoxModel<String> modeleDesSousCategories = new DefaultComboBoxModel( tabSousCategories );
-    //categoryModel = new DefaultComboBoxModel(categoryTab);
+  
+
+
+  
 
     
     public FenAcceuil() {
+
+        
         lesProduits = new ArrayList<Produit>();
         lesProduits.add(new Produit ("Kentaro","Meian","blabla","1997",9.7,0,true,12,"chemin"));
         lesProduits.add(new Produit ("Inoue","Kana","blabla","2000",1.7,0,true,15,"chemin"));
@@ -41,7 +56,8 @@ public class FenAcceuil extends javax.swing.JFrame {
         lesProduits.add(new Produit ("Taro","Bool","blabla","2008",7,0,true,18,"chemin"));
         lesProduits.add(new Produit ("Hum","euh","blabla","2009",9,0,true,11,"chemin"));
         
-       // Collections.sort(lesProduits);
+       Collections.sort(lesProduits);
+
         
         
         initComponents();
@@ -56,7 +72,6 @@ public class FenAcceuil extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem5 = new javax.swing.JMenuItem();
         tpan_accueil = new javax.swing.JTabbedPane();
         pan_produits = new javax.swing.JPanel();
         pan_rechercheProduits = new javax.swing.JPanel();
@@ -112,8 +127,6 @@ public class FenAcceuil extends javax.swing.JFrame {
         mi_quitter = new javax.swing.JMenuItem();
         m_aPropos = new javax.swing.JMenu();
 
-        jMenuItem5.setText("jMenuItem5");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pan_rechercheProduits.setBorder(javax.swing.BorderFactory.createTitledBorder("Rechercher un produit"));
@@ -123,6 +136,11 @@ public class FenAcceuil extends javax.swing.JFrame {
         lbl_titre1.setText("Catégories :");
 
         cb_categories.setModel(modeleDesCategories);
+        cb_categories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_categoriesActionPerformed(evt);
+            }
+        });
 
         cb_sousCategories.setModel(modeleDesSousCategories);
         cb_sousCategories.addActionListener(new java.awt.event.ActionListener() {
@@ -194,10 +212,6 @@ public class FenAcceuil extends javax.swing.JFrame {
 
         lbl_catAff.setText("Catégorie :");
 
-        cb_categoriesAff.setModel(modeleDesCategories);
-
-        cb_sousCategoriesAff.setModel(modeleDesSousCategories);
-
         tf_id.setBackground(new java.awt.Color(204, 204, 204));
 
         tf_titreAff.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +249,7 @@ public class FenAcceuil extends javax.swing.JFrame {
         pan_affichageLayout.setHorizontalGroup(
             pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan_affichageLayout.createSequentialGroup()
-                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan_affichageLayout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(lbl_id)
@@ -244,33 +258,29 @@ public class FenAcceuil extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(lbl_catAff, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cb_categoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan_affichageLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(lbl_titreAff1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tf_titreAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(lbl_auteur, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_auteurAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan_affichageLayout.createSequentialGroup()
+                        .addComponent(cb_categoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(66, 66, 66)
                         .addComponent(lbl_sousCatAff)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cb_sousCategoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan_affichageLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
+                        .addComponent(cb_sousCategoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan_affichageLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(lbl_titreAff1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_titreAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(lbl_auteur, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_auteurAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
                         .addComponent(lbl_editeur, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_editeurAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
+                        .addGap(26, 26, 26)
                         .addComponent(lbl_anneEdition)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_anneeEditionAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pan_affichageLayout.setVerticalGroup(
             pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,17 +293,17 @@ public class FenAcceuil extends javax.swing.JFrame {
                     .addComponent(cb_categoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_sousCatAff)
                     .addComponent(cb_sousCategoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_titreAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_titreAff1)
+                    .addComponent(tf_titreAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_auteur)
-                    .addComponent(tf_editeurAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_editeur)
                     .addComponent(tf_auteurAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_editeur)
+                    .addComponent(tf_editeurAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_anneEdition)
                     .addComponent(tf_anneeEditionAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         pan_modif.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -366,7 +376,7 @@ public class FenAcceuil extends javax.swing.JFrame {
                     .addComponent(lbl_prixReduit)
                     .addComponent(tf_prixReduit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tf_enPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_seuil)
                     .addComponent(tf_seuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -400,20 +410,21 @@ public class FenAcceuil extends javax.swing.JFrame {
         pan_produits.setLayout(pan_produitsLayout);
         pan_produitsLayout.setHorizontalGroup(
             pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan_produitsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_supprimer)
-                .addGap(27, 27, 27)
-                .addComponent(btn_ajouter, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(btn_modif, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(542, 542, 542))
             .addGroup(pan_produitsLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pan_rechercheProduits, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pan_affichage, javax.swing.GroupLayout.PREFERRED_SIZE, 1094, Short.MAX_VALUE)
-                    .addComponent(pan_modif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan_produitsLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pan_rechercheProduits, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pan_affichage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pan_modif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(pan_produitsLayout.createSequentialGroup()
+                        .addGap(271, 271, 271)
+                        .addComponent(btn_supprimer)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_ajouter, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_modif, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         pan_produitsLayout.setVerticalGroup(
@@ -423,14 +434,14 @@ public class FenAcceuil extends javax.swing.JFrame {
                 .addComponent(pan_rechercheProduits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pan_affichage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pan_modif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_supprimer)
                     .addComponent(btn_ajouter)
-                    .addComponent(btn_modif)
-                    .addComponent(btn_supprimer))
-                .addContainerGap())
+                    .addComponent(btn_modif))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tpan_accueil.addTab("Produits", pan_produits);
@@ -443,7 +454,7 @@ public class FenAcceuil extends javax.swing.JFrame {
         );
         pan_categoriesLayout.setVerticalGroup(
             pan_categoriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGap(0, 651, Short.MAX_VALUE)
         );
 
         tpan_accueil.addTab("Catégories", pan_categories);
@@ -456,7 +467,7 @@ public class FenAcceuil extends javax.swing.JFrame {
         );
         pan_promotionsLayout.setVerticalGroup(
             pan_promotionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGap(0, 651, Short.MAX_VALUE)
         );
 
         tpan_accueil.addTab("Promotions", pan_promotions);
@@ -469,7 +480,7 @@ public class FenAcceuil extends javax.swing.JFrame {
         );
         pan_clientsLayout.setVerticalGroup(
             pan_clientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 701, Short.MAX_VALUE)
+            .addGap(0, 651, Short.MAX_VALUE)
         );
 
         tpan_accueil.addTab("Clients", pan_clients);
@@ -513,6 +524,11 @@ public class FenAcceuil extends javax.swing.JFrame {
         m_fichier.add(jSeparator2);
 
         mi_quitter.setText("Quitter");
+        mi_quitter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_quitterActionPerformed(evt);
+            }
+        });
         m_fichier.add(mi_quitter);
 
         mb_menu.add(m_fichier);
@@ -527,6 +543,9 @@ public class FenAcceuil extends javax.swing.JFrame {
 
     private void cb_sousCategoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_sousCategoriesActionPerformed
         // TODO add your handling code here:
+  
+
+           
     }//GEN-LAST:event_cb_sousCategoriesActionPerformed
 
     private void btn_rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rechercherActionPerformed
@@ -581,6 +600,43 @@ public class FenAcceuil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mi_promotionsActionPerformed
 
+    private void cb_categoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_categoriesActionPerformed
+        // TODO add your handling code here:
+                CategorieProduit test=(CategorieProduit) cb_categories.getSelectedItem();
+        
+                      
+           switch(test){
+               case L:
+               tabSousCategoriesLitterature = SousCategorieLitterature.getLesSousCategoriesLitterature().toArray();
+               modeleDesSousCategories = new DefaultComboBoxModel(tabSousCategoriesLitterature);
+               break;
+               case J:
+                   tabSousCategoriesJeunesse = SousCategorieJeunesse.getLesSousCategoriesJeunesse().toArray();
+                   modeleDesSousCategories = new DefaultComboBoxModel(tabSousCategoriesJeunesse);
+                   break;
+               case B:
+                   tabSousCategoriesBDEtManga = SousCategorieBDEtManga.getLesSousCategoriesBDEtManga().toArray();
+                   modeleDesSousCategories = new DefaultComboBoxModel(tabSousCategoriesBDEtManga);
+                   break;
+               case A:
+                   tabSousCategoriesArtEtCulture = SousCategorieArtEtCulture.getLesSousCategoriesArtEtCulture().toArray();
+                   modeleDesSousCategories = new DefaultComboBoxModel(tabSousCategoriesArtEtCulture);
+                   break;
+               default :
+                  // cb_sousCategories.setModel(modeleDesSousCategories);
+                   break;
+            
+           }
+           
+          // cb_sousCategories.setModel(modeleDesSousCategories); // pas sure de l'endroit
+    }//GEN-LAST:event_cb_categoriesActionPerformed
+
+    private void mi_quitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_quitterActionPerformed
+        // TODO add your handling code here:
+        
+        System.exit(0);
+    }//GEN-LAST:event_mi_quitterActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -626,7 +682,6 @@ public class FenAcceuil extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_categoriesAff;
     private javax.swing.JComboBox<String> cb_sousCategories;
     private javax.swing.JComboBox<String> cb_sousCategoriesAff;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lbl_anneEdition;

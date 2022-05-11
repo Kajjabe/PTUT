@@ -27,7 +27,7 @@ public class Produit implements Comparable<Produit> {
     private int quantite;
     private String img;
     private static int cpt;
-    public static List<Produit> ListeDesProduits = new ArrayList<>(); //tentative de correction erreur en initialisant ?
+    public static List<Produit> ListeDesProduits = new ArrayList<>(); //tentative de correction erreur en initialisant
     public static List<String> ListeDesCategories = new ArrayList<>();
     public static List<String> ListeDesSousCategories = new ArrayList<>();
 
