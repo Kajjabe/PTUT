@@ -21,7 +21,7 @@ import java.lang.Enum;
 public class Produit implements Comparable<Produit> {
 
     private final int id;
-    private String auteur, editeur, description, annee;
+    private String titre, auteur, editeur, description, annee;
     private double prix, remise;
     private boolean enStock;
     private int quantite;
@@ -31,10 +31,11 @@ public class Produit implements Comparable<Produit> {
     public static List<String> ListeDesCategories = new ArrayList<>();
     public static List<String> ListeDesSousCategories = new ArrayList<>();
 
-    //je doit ajouter deux autre constructeurs
-    public Produit(String auteur, String editeur, String description, String annee, double prix, double remise, boolean enStock, int quantite, String img) {
+    //je dois ajouter deux autre constructeurs
+    public Produit(String titre, String auteur, String editeur, String description, String annee, double prix, double remise, boolean enStock, int quantite, String img) {
 
         //effectuer test
+        this.titre = titre;
         this.auteur = auteur;
         this.editeur = editeur;
         this.description = description;
@@ -51,7 +52,7 @@ public class Produit implements Comparable<Produit> {
         ListeDesProduits.add(this);
     }
 
-    //override pour utiliser la methode collection.sort
+    
     
     
     public List<Produit> getLesProduits() {
@@ -138,37 +139,9 @@ public class Produit implements Comparable<Produit> {
     
     @Override
     public int compareTo (Produit p) {
-        return 0; //a recherche sur internet --> -1, O ou 1
+        return 0; //a faire pour utiliser le sort
     }
-    //classes sous-catégories 
- 
     
-    // est-ce que ça retourne les nom des sous cat ? 
-        public static List<String> getLesSousCategories() {
-        // String auteur, String editeur, String description, String annee, double prix, double remise, boolean enStock, int quantite, String img) {
-        //Produit p;
-        // ListeDesSousCategories = new ArrayList<>();
-
-        //p = new Produit("Kentaro","Meian","blabla","1997",9.7,0,true,12,"chemin");
-        for (SousCategorieBDEtManga c : SousCategorieBDEtManga.values()) {
-           // ListeDesSousCategories.add(c);
-        }
-        
-         for (SousCategorieArtEtCulture c : SousCategorieArtEtCulture.values()) {
-            System.out.println("Sous-categories de Art et culture: " + c);
-        }
-         
-          for (SousCategorieJeunesse c : SousCategorieJeunesse.values()) {
-            System.out.println("Sous-categories de Jeunesse: " + c);
-        }
-          
-           for (SousCategorieLitterature c : SousCategorieLitterature.values()) {
-            System.out.println("Sous-categories de Litterature: " + c);
-        }
-
-        return ListeDesSousCategories;
-
-    }
     
    
 

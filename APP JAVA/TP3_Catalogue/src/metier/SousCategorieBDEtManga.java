@@ -29,7 +29,7 @@ public enum SousCategorieBDEtManga {
 
         List<String> ListeDesSousCategoriesBDEtManga = new ArrayList<>();
         for (SousCategorieBDEtManga c : SousCategorieBDEtManga.values()) {
-            ListeDesSousCategoriesBDEtManga.add(c.getNom());//bizarre selon patrick ListeDesCategories.add(getNomCategorie);
+            ListeDesSousCategoriesBDEtManga.add(c.getNom());
         }
 
         return ListeDesSousCategoriesBDEtManga;

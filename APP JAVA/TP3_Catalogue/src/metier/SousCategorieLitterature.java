@@ -29,7 +29,7 @@ import java.util.List;
 
         List<String> ListeDesSousCategoriesLitterature = new ArrayList<>();
         for (SousCategorieLitterature c : SousCategorieLitterature.values()) {
-            ListeDesSousCategoriesLitterature.add(c.getNom());//bizarre selon patrick ListeDesCategories.add(getNomCategorie);
+            ListeDesSousCategoriesLitterature.add(c.getNom());
         }
 
         return ListeDesSousCategoriesLitterature;

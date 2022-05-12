@@ -28,7 +28,7 @@ import java.util.List;
 
         List<String> ListeDesSousCategoriesJeunesse = new ArrayList<>();
         for (SousCategorieJeunesse c : SousCategorieJeunesse.values()) {
-            ListeDesSousCategoriesJeunesse.add(c.getNom());//bizarre selon patrick ListeDesCategories.add(getNomCategorie);
+            ListeDesSousCategoriesJeunesse.add(c.getNom());
         }
 
         return ListeDesSousCategoriesJeunesse;

@@ -50,12 +50,11 @@ public class FenAcceuil extends javax.swing.JFrame {
 
         
         lesProduits = new ArrayList<Produit>();
-        lesProduits.add(new Produit ("Kentaro","Meian","blabla","1997",9.7,0,true,12,"chemin"));
-        lesProduits.add(new Produit ("Inoue","Kana","blabla","2000",1.7,0,true,15,"chemin"));
-        lesProduits.add(new Produit ("Ken","Seya","blabla","2007",10,0,true,12,"chemin"));
-        lesProduits.add(new Produit ("Taro","Bool","blabla","2008",7,0,true,18,"chemin"));
-        lesProduits.add(new Produit ("Hum","euh","blabla","2009",9,0,true,11,"chemin"));
-        
+        lesProduits.add(new Produit ("Berserk","Kentaro","Meian","blabla","1997",9.7,0,true,12,"chemin"));
+        lesProduits.add(new Produit ("Vagabond","Inoue","Kana","blabla","2000",1.7,0,true,15,"chemin"));
+        lesProduits.add(new Produit ("Sapiens","Harrari","Poche","blabla","2015",12,0,true,3,"chemin"));
+
+
        Collections.sort(lesProduits);
 
         
@@ -603,7 +602,7 @@ public class FenAcceuil extends javax.swing.JFrame {
     private void cb_categoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_categoriesActionPerformed
         // TODO add your handling code here:
                 CategorieProduit test=(CategorieProduit) cb_categories.getSelectedItem();
-        
+        //ne marche pas --> cbb souscategorie n'affiche rien
                       
            switch(test){
                case L:

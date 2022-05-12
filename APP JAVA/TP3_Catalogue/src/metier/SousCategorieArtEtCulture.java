@@ -29,7 +29,7 @@ public enum SousCategorieArtEtCulture {
 
         List<String> ListeDesSousCategoriesArtEtCulture = new ArrayList<>();
         for (SousCategorieArtEtCulture c : SousCategorieArtEtCulture.values()) {
-            ListeDesSousCategoriesArtEtCulture.add(c.getNom());//bizarre selon patrick ListeDesCategories.add(getNomCategorie);
+            ListeDesSousCategoriesArtEtCulture.add(c.getNom());
         }
 
         return ListeDesSousCategoriesArtEtCulture;
