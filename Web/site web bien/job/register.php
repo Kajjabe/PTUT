@@ -79,7 +79,7 @@
            placeholder="nom" required />
 
     <input type="text" class="box-input" name="prenom"
-           placeholder="adresse_mail" required />
+           placeholder="prenom" required />
 
     <input type="text" class="box-input" name="adresse_mail"
            placeholder="adresse_mail" required />
@@ -122,10 +122,16 @@ if (isset($_REQUEST['adresse_mail']) && isset($_REQUEST['password'])) {
 
 
 
-        $queryString = "INSERT INTO `client_inscrit` (adresse_mail, mot_de_passe) VALUES (:mail,:mdp )";
+        $queryString = "INSERT INTO `client_inscrit` (nom,prenom,adresse_mail, mot_de_passe,adresse,ville,code_postal) VALUES (:nom,:prenom,:mail,:mdp,:adresse,:ville,:cdp )";
         $stmt = $db->prepare($queryString);
+        $stmt->bindParam('nom', $_REQUEST['nom']);
+        $stmt->bindParam('prenom', $_REQUEST['prenom']);
         $stmt->bindParam('mail', $_REQUEST['adresse_mail']);
         $stmt->bindParam('mdp', $_REQUEST['password']);
+        $stmt->bindParam('adresse', $_REQUEST['adresse']);
+        $stmt->bindParam('ville', $_REQUEST['ville']);
+        $stmt->bindParam('cdp', $_REQUEST['code_postal']);
+
         $stmt->execute();
 }
 
