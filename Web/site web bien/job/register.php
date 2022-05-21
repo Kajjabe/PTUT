@@ -76,10 +76,10 @@
     <h1 class="box-title">S'inscrire</h1>
 
     <input type="text" class="box-input" name="nom"
-           placeholder="nom" required />
+           placeholder="nom"  />
 
     <input type="text" class="box-input" name="prenom"
-           placeholder="prenom" required />
+           placeholder="prenom"  />
 
     <input type="text" class="box-input" name="adresse_mail"
            placeholder="adresse_mail" required />
@@ -88,15 +88,16 @@
            placeholder="Mot_de_passe" required />
 
     <input type="text" class="box-input" name="adresse"
-           placeholder="adresse" required />
+           placeholder="adresse"  />
 
     <input type="text" class="box-input" name="ville"
-           placeholder="ville" required />
+           placeholder="ville" />
 
     <input type="text" class="box-input" name="code_postal"
-           placeholder="code_postal" required />
+           placeholder="code_postal" />
 
-    <input type="submit" name="submit"
+    <!--name modifier avant submit maitenanant formsend-->
+    <input type="submit" name="formsend"
            value="S'inscrire" class="box-button" />
 
     <p class="box-register">Déjà inscrit?
@@ -107,33 +108,58 @@
 
 
 
+
+
+
+
+
+
 <!-- Permet utitlisateur de se s'inscrire-->
 
 <?php
-
-require_once './config.php';
-
-if (isset($_REQUEST['adresse_mail']) && isset($_REQUEST['password'])) {
-
-    $db = Database::getDb();
+include 'config.php';
 
 
-    //if mettre rowcount avec si adresse mail existe déjà dans base de donnée mettre vous connecter
+if(isset($_POST['formsend']))
+
+    {
+        extract($_POST);
+        if(!empty($adresse_mail) && !empty($password)){
 
 
+            $db = Database::getDb();
 
-        $queryString = "INSERT INTO `client_inscrit` (nom,prenom,adresse_mail, mot_de_passe,adresse,ville,code_postal) VALUES (:nom,:prenom,:mail,:mdp,:adresse,:ville,:cdp )";
-        $stmt = $db->prepare($queryString);
-        $stmt->bindParam('nom', $_REQUEST['nom']);
-        $stmt->bindParam('prenom', $_REQUEST['prenom']);
-        $stmt->bindParam('mail', $_REQUEST['adresse_mail']);
-        $stmt->bindParam('mdp', $_REQUEST['password']);
-        $stmt->bindParam('adresse', $_REQUEST['adresse']);
-        $stmt->bindParam('ville', $_REQUEST['ville']);
-        $stmt->bindParam('cdp', $_REQUEST['code_postal']);
+            $c = $db->prepare("SELECT adresse_mail from client_inscrit where adresse_mail =:adresse_mail");
+            $c->execute(['adresse_mail' =>$adresse_mail]);
+            $result = $c -> rowCount();
 
-        $stmt->execute();
-}
+            if($result==0){
+
+                $queryString = "INSERT INTO `client_inscrit` (nom,prenom,adresse_mail, mot_de_passe,adresse,ville,code_postal) VALUES (:nom,:prenom,:mail,:mdp,:adresse,:ville,:cdp )";
+                $stmt = $db->prepare($queryString);
+                $stmt->bindParam('nom', $_REQUEST['nom']);
+                $stmt->bindParam('prenom', $_REQUEST['prenom']);
+                $stmt->bindParam('mail', $_REQUEST['adresse_mail']);
+                $stmt->bindParam('mdp', $_REQUEST['password']);
+                $stmt->bindParam('adresse', $_REQUEST['adresse']);
+                $stmt->bindParam('ville', $_REQUEST['ville']);
+                $stmt->bindParam('cdp', $_REQUEST['code_postal']);
+
+                $stmt->execute();
+
+                echo"<h2>Votre compte a été créer avec succès </h2>";
+
+            }
+            else{
+
+                echo"<h2>Un compte existe déjà avec cette adresse mail </h2>";
+            }
+
+        }
+
+    }
+
+
 
 
 ?>
