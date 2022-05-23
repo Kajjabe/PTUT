@@ -514,7 +514,7 @@ https://templatemo.com/tm-516-known
   }
 
   /* Full-width inputs */
-  input[type=text], input[type=password] {
+  input[type=text], input[type=password], input[type=email] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -883,7 +883,11 @@ https://templatemo.com/tm-516-known
     color: #ffffff;
   }
   
-
+#inscription input
+{
+  width: 50%;
+  align-content: center;
+}
 
 
   /*---------------------------------------
