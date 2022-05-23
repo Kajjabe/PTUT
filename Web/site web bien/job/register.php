@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<?php require_once("inc/init.inc.php"); ?>
+
 <?php require_once("inc/haut.inc.php"); ?>
+<?php include ("inc/init.inc.php"); ?>
 
 <!--- début de la page -->
 
@@ -16,7 +17,7 @@
 
 
 <form class="post" action="" method="post">
-    
+
 
     <input type="text" class="box-input" name="nom"
            placeholder="nom"  />
@@ -62,7 +63,7 @@
 <!-- Permet utitlisateur de se s'inscrire-->
 
 <?php
-include 'config.php';
+
 
 
 if(isset($_POST['formsend']))

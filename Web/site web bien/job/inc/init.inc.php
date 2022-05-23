@@ -2,8 +2,28 @@
 //inclu pour toutes les pages web ex: connexion base de donné
 
 //--------- BDD
-$mysqli = new mysqli("localhost", "root", "", "tp33");
-if ($mysqli->connect_error) die('Un problème est survenu lors de la tentative de connexion à la BDD : ' . $mysqli->connect_error);
+
+class Database
+{
+    public static function getDb()
+    {
+        $host = 'localhost';
+        $dbname = 'tp33';
+        $user = 'root';
+        $pass = '';
+
+        try {
+            $db = new PDO("mysql:host=" . $host . ";dbname=" . $dbname, $user, $pass);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            echo $e;
+        }
+        return $db;
+    }
+}
+
+$db = new mysqli("localhost", "root", "", "tp33");
+if ($db->connect_error) die('Un problème est survenu lors de la tentative de connexion à la BDD : ' . $db->connect_error);
 // $mysqli->set_charset("utf8");
 
 //--------- SESSION
