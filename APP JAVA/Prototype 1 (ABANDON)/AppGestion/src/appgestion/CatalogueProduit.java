@@ -137,6 +137,12 @@ public class CatalogueProduit extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 102, 102));
         jLabel10.setText("Sous-catégorie :");
 
+        titreTf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                titreTfActionPerformed(evt);
+            }
+        });
+
         quantiteTf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 quantiteTfActionPerformed(evt);
@@ -356,7 +362,7 @@ public class CatalogueProduit extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
@@ -551,6 +557,10 @@ public class CatalogueProduit extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_supprimerBtnMouseClicked
+
+    private void titreTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titreTfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_titreTfActionPerformed
 
     /**
      * @param args the command line arguments
