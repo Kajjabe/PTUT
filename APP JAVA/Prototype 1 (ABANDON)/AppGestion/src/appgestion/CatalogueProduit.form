@@ -380,6 +380,9 @@
             <Component class="javax.swing.JTextField" name="produitIdTf">
             </Component>
             <Component class="javax.swing.JTextField" name="titreTf">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="titreTfActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="auteurTf">
             </Component>
