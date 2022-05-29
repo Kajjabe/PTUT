@@ -16,37 +16,37 @@
 
 
 
-<form class="post" action="" method="post">
+            <form class="post" action="" method="post">
 
 
-    <input type="text" class="box-input" name="nom"
-           placeholder="nom"  />
+                <input type="text" class="box-input" name="nom"
+                       placeholder="nom"  />
 
-    <input type="text" class="box-input" name="prenom"
-           placeholder="prenom"  />
+                <input type="text" class="box-input" name="prenom"
+                       placeholder="prenom"  />
 
-    <input type="text" class="box-input" name="adresse_mail"
-           placeholder="adresse_mail" required />
+                <input type="text" class="box-input" name="adresse_mail"
+                       placeholder="adresse_mail" required />
 
-    <input type="password" class="box-input" name="password"
-           placeholder="Mot_de_passe" required />
+                <input type="password" class="box-input" name="password"
+                       placeholder="Mot_de_passe" required />
 
-    <input type="text" class="box-input" name="adresse"
-           placeholder="adresse"  />
+                <input type="text" class="box-input" name="adresse"
+                       placeholder="adresse"  />
 
-    <input type="text" class="box-input" name="ville"
-           placeholder="ville" />
+                <input type="text" class="box-input" name="ville"
+                       placeholder="ville" />
 
-    <input type="text" class="box-input" name="code_postal"
-           placeholder="code_postal" />
+                <input type="text" class="box-input" name="code_postal"
+                       placeholder="code_postal" />
 
-    <!--name modifier avant submit maitenanant formsend-->
-    <input type="submit" name="formsend"
-           value="S'inscrire" class="box-button" />
+                <!--name modifier avant submit maitenanant formsend-->
+                <input type="submit" name="formsend"
+                       value="S'inscrire" class="box-button" />
 
-    <p class="box-register">Déjà inscrit?
-        <a href="login.php">Connectez-vous ici</a></p>
-</form>
+                <p class="box-register">Déjà inscrit?
+                    <a href="login.php">Connectez-vous ici</a></p>
+            </form>
         </div>
     </div>
 </section>
@@ -116,8 +116,4 @@ if(isset($_POST['formsend']))
 
 </body>
 </html>
-
-
-
-
 

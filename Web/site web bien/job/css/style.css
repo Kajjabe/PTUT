@@ -539,9 +539,19 @@ https://templatemo.com/tm-516-known
     border: 1px solid #53af57;
   }
 
+/*---------------------------------------
+   fichier littérature - pour le catalogue affichier par sous catégorie dans la page
+-----------------------------------------*/
 
 
+  #container boutique-produit{
+    width: 50%;
+    align-content: center;  }
+  .boutique-produit:hover{ background: #c0c0c0; }
 
+ /*-- -fin fichier littérature --*/
+
+/**************************************************** GENERAL ************************************************/
   /*---------------------------------------
       FEATURE              
   -----------------------------------------*/
@@ -883,11 +893,11 @@ https://templatemo.com/tm-516-known
     color: #ffffff;
   }
   
-#inscription input
-{
-  width: 50%;
-  align-content: center;
-}
+  #inscription input
+  {
+    width: 50%;
+    align-content: center;
+  }
 
 
   /*---------------------------------------
