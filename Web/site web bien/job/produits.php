@@ -21,37 +21,39 @@ if(isset($_GET['submit']))
     {
         if(!empty($_GET['categorie']) AND !empty($_GET['sous_categorie']))
         {
-            $donnees = executeRequete("select titre,prix,image from produit where id_categorie='$_GET[categorie]' AND id_sous_categorie='$_GET[sous_categorie]'");
+            $donnees = executeRequete("select id_produit,titre,prix,image from produit where id_categorie='$_GET[categorie]' AND id_sous_categorie='$_GET[sous_categorie]'");
 
+            $contenu .="<ul class=produits>";
             while($produit = $donnees->fetch_assoc())
             {
-                $contenu .= '<div class="boutique-produit">';
+                $contenu .= '<li class="boutique-produit">';
                 $contenu .= "<h2>$produit[titre]</h2>";
-                $contenu .= "<a href=\"register.php?id_produit=$produit[titre]\"><img src=\"$produit[image]\" =\"130\" height=\"100\"></a>";
+                $contenu .= "<a href=\"produit_description.php?id_produit=$produit[id_produit]\"><img src=\"$produit[image]\" =\"130\" height=\"100\"></a>";
                 $contenu .= "<p>$produit[prix] €</p>";
-                $contenu .= '<a href="fiche_produit.php?id_produit=' . $produit['titre'] . '">Voir la fiche</a>';
-                $contenu .= '</div>';
+                $contenu .= '<a href="produit_description.php?id_produit=' . $produit['id_produit'] . '">Voir la fiche</a>';
+                $contenu .= '</li>';
                 echo "helooo";
 
-            }$contenu .= '</div>';
+            }$contenu .= '</ul>';
             echo $contenu;
 
 
         } else if (!empty($_GET['categorie']))
         {
-            $donnees = executeRequete("select titre,prix,image from produit where id_categorie='$_GET[categorie]'");
+            $donnees = executeRequete("select id_produit,titre,prix,image from produit where id_categorie='$_GET[categorie]'");
 
+            $contenu .="<ul class=produits>";
             while($produit = $donnees->fetch_assoc())
             {
-                $contenu .= '<div class="boutique-produit">';
+                $contenu .= '<li class="boutique-produit">';
                 $contenu .= "<h2>$produit[titre]</h2>";
-                $contenu .= "<a href=\"register.php?id_produit=$produit[titre]\"><img src=\"$produit[image]\" =\"130\" height=\"100\"></a>";
+                $contenu .= "<a href=\"produit_description.php?id_produit=$produit[id_produit]\"><img src=\"$produit[image]\" =\"130\" height=\"100\"></a>";
                 $contenu .= "<p>$produit[prix] €</p>";
-                $contenu .= '<a href="fiche_produit.php?id_produit=' . $produit['titre'] . '">Voir la fiche</a>';
-                $contenu .= '</div>';
+                $contenu .= '<a href="produit_description.php?id_produit=' . $produit['id_produit'] . '">Voir la fiche</a>';
+                $contenu .= '</li>';
                 echo "helooo";
 
-            }$contenu .= '</div>';
+            }$contenu .= '</ul>';
             echo $contenu;
 
 
@@ -65,19 +67,20 @@ if(isset($_GET['submit']))
 
     }else
     {
-        $donnees = executeRequete("select titre,prix,image from produit ");
+        $donnees = executeRequete("select id_produit,titre,prix,image from produit ");
 
+        $contenu .="<ul class=produits>";
         while($produit = $donnees->fetch_assoc())
         {
-            $contenu .= '<div class="boutique-produit">';
+            $contenu .= '<li class="boutique-produit">';
             $contenu .= "<h2>$produit[titre]</h2>";
-            $contenu .= "<a href=\"register.php?id_produit=$produit[titre]\"><img src=\"$produit[image]\" =\"130\" height=\"100\"></a>";
+            $contenu .= "<a href=\"produit_description.php?id_produit=$produit[id_produit]\"><img src=\"$produit[image]\" =\"160\" height=\"140\"></a>";
             $contenu .= "<p>$produit[prix] €</p>";
-            $contenu .= '<a href="fiche_produit.php?id_produit=' . $produit['titre'] . '">Voir la fiche</a>';
-            $contenu .= '</div>';
+            $contenu .= '<a href="produit_description.php?id_produit=' . $produit['id_produit'] . '">Voir la fiche</a>';
+            $contenu .= '</li>';
             echo "vous avez rien sélectionner";
 
-        }$contenu .= '</div>';
+        }$contenu .= '</ul>';
         echo $contenu;
     }
 
@@ -85,15 +88,15 @@ if(isset($_GET['submit']))
 
 }else
 {
-    $donnees = executeRequete("select titre,prix,image from produit");
+    $donnees = executeRequete("select id_produit,titre,prix,image from produit");
 
     while($produit = $donnees->fetch_assoc())
     {
         $contenu .= '<div class="boutique-produit">';
         $contenu .= "<h2>$produit[titre]</h2>";
-        $contenu .= "<a href=\"register.php?id_produit=$produit[titre]\"><img src=\"$produit[image]\" =\"130\" height=\"100\"></a>";
+        $contenu .= "<a href=\"produit_description.php?id_produit=$produit[id_produit]\"><img src=\"$produit[image]\" =\"130\" height=\"100\"></a>";
         $contenu .= "<p>$produit[prix] €</p>";
-        $contenu .= '<a href="fiche_produit.php?id_produit=' . $produit['titre'] . '">Voir la fiche</a>';
+        $contenu .= '<a href="produit_description.php?id_produit=' . $produit['id_produit'] . '">Voir la fiche</a>';
         $contenu .= '</div>';
         echo "vous avez cliquer sur voir tous les produits";
 
