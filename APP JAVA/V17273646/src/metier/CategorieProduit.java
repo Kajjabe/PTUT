@@ -24,19 +24,27 @@ public enum CategorieProduit {
     
     //catégories --> création de constructeur 
     
-        L("Litterature",1), J("Jeunesse",2), B("BD et Mangas",3), A("Art et Culture",4);
+        L("Litterature"), J("Jeunesse"), B("BD et Mangas"), A("Art et Culture");
 
         private final String nom;
-        private final int id;
+       // private final int id;
 
-        CategorieProduit(String Nom, int id) {
+       /* CategorieProduit(String Nom, int id) {
             this.nom = Nom;
             this.id = id;
+        }*/
+        
+        CategorieProduit(String Nom){
+            this.nom=Nom;
         }
 
         public String getNom() {
             return nom;
         }
+        
+       /* public int getId(){
+            return id;
+        }*/
         
         /** Méthode qui renvoie l'enum correspondant à une chaine (ignore la casse)
      * 
@@ -66,5 +74,7 @@ public enum CategorieProduit {
         return ListeDesCategories;
 
     }
+    
+    
     
 }

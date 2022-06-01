@@ -5,12 +5,9 @@
  */
 package vue;
 
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,11 +16,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import metier.CategorieProduit;
+import metier.CategorieProduitDAO;
 import metier.Produit;
+import metier.ProduitDAO;
 import metier.SousCategorieArtEtCulture;
 import metier.SousCategorieBDEtManga;
 import metier.SousCategorieJeunesse;
 import metier.SousCategorieLitterature;
+import metier.SousCategorieProduitDAO;
 
 /**
  *
@@ -39,14 +39,8 @@ public class FenAcceuil extends javax.swing.JFrame {
     private ComboBoxModel<String> modeleDesCategories;
     private ComboBoxModel<String> modeleDesSousCategories;
     private List<Produit> lesProduitsTrouves;
-    public static String HOST = "jdbc:mysql://localhost:3306/tp33?zeroDateTimeBehavior=convertToNull"; //jdbc:mysql://localhost:3306/tp33?zeroDateTimeBehavior=convertToNull [root on Default schema]
-    public static String USERNAME = "root";
-    public static String PASSWORD = "";//"root"
 
-    Connection con = null;
-    Statement st = null;
-    ResultSet rs = null;
-
+    
     public FenAcceuil() {
 
         //initialisation des catégories --> a modifier pour aller recup infos dans bdd --> remplacer les valeurs
@@ -59,27 +53,16 @@ public class FenAcceuil extends javax.swing.JFrame {
         lesProduitsTrouves = new ArrayList<>();
 
         initComponents();
-//        selectProduit();
-
-        // Création de quelques produits en dur
-        /* public Produit(String titre, CategorieProduit categorie, String description,
-            Double prix, int quantite, int seui)*/
-       /* Produit p1 = new Produit("Berserk",
-                CategorieProduit.B, "seinen bien",
-                10.52, 207, 15);
-        Produit p2 = new Produit("Vagabond",
-                CategorieProduit.B, "seinen bien",
-                7.0, 58, 10);
-        Produit p3 = new Produit("Sapiens",
-                CategorieProduit.A, "japprend dtrucs",
-                10.52, 207, 15);*/
-
         lesProduits = Produit.getListeDesProduits();
-
         Collections.sort(lesProduits);
 
     }
 
+    double ParseDouble(String strNumber) {
+     if (strNumber.isEmpty()) return 0.00;
+     else return Double.parseDouble(strNumber);
+  
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -445,16 +428,17 @@ public class FenAcceuil extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tf_seuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbl_prix)
-                        .addComponent(tf_prix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_enPromo)
-                        .addComponent(tf_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_stock)
-                        .addComponent(tf_prixReduit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_prixReduit)
-                        .addComponent(lbl_seuil)
-                        .addComponent(cb_enPromo)))
+                    .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cb_enPromo)
+                        .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_prix)
+                            .addComponent(tf_prix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_enPromo)
+                            .addComponent(tf_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_stock)
+                            .addComponent(tf_prixReduit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_prixReduit)
+                            .addComponent(lbl_seuil))))
                 .addContainerGap())
         );
 
@@ -877,32 +861,6 @@ public class FenAcceuil extends javax.swing.JFrame {
             cbb.setVisible(false);
         }
     }
-//mettre fonction ajouter, modifier, supprimer, rechercher dans la classe produit + fonctions definitives
-    //doivent prendre en parametre un produit et on créer un produit avec comme parametre de construction les éléments des tf avant l'appel de la fonction
- 
-
-   /* private void modifierProduit() {
-        try {
-            con = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
-            //problèmes avec type de annee_edition, prixreduit(tauxreduction),stock, categories et boolen --> comment recup ? types doivent etre equivalent ? convertion ? 
-            String updateQuery = "UPDATE produit p SET titre='" + tf_titreAff.getText() + "'" + ",auteur='" 
-                    + tf_auteurAff.getText() + "'" + ",editeur='" + tf_editeurAff.getText() + "'" 
-                    + ",resumé='" + tf_resume.getText() + "'" + ",prix='" + tf_prix.getText() +"'"
-                    +",anne_edition='"+tf_anneeEditionAff.getText()+"'"+",prix_reduit='"+tf_prixReduit.getText()+"'"
-                    +",stock='"+tf_stock.getText()+"'"
-                    +",seuil='"+tf_seuil.getText()+"'"+ " WHERE id_produit=" + tf_id.getText();
-                    
-            PreparedStatement add = con.prepareStatement(updateQuery);
-            add.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Le produit a bien été modifié !");
-            // selectProduit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-       
-
-    }*/
     private void mi_clientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_clientsActionPerformed
         // TODO add your handling code here:
         tpan_accueil.setSelectedComponent(pan_clients);
@@ -963,8 +921,8 @@ public class FenAcceuil extends javax.swing.JFrame {
         if (tf_id.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Veuillez selectionner un produit à supprimer.");
         } else {
-            Produit test = new Produit(Integer.valueOf(tf_id.getText()));//,tf_resume,tf_auteurAff,tf_editeurAff,tf_anneeEditionAff,tf_prixReduit,tf_stock,tf_seuil);
-        Produit.supprimerProduit(test);
+            Produit test = new Produit(Integer.valueOf(tf_id.getText()));
+        ProduitDAO.supprimerProduit(test);
 
         }
     }//GEN-LAST:event_btn_supprimerActionPerformed
@@ -975,25 +933,76 @@ public class FenAcceuil extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Il manque des informations.");
 
-        }//voir avec la classe cb_connexion --> methode d'execution des requêtes
+        }//
          else
         {*/
+                
+        String titre= tf_titreAff.getText();
+        Double prix = Double.parseDouble(tf_prix.getText());
+        String description = tf_resume.getText();
+        String auteur = tf_auteurAff.getText();
+        String editeur = tf_editeurAff.getText();
+        int annee = Integer.parseInt(tf_anneeEditionAff.getText());
+        Double prixReduit = Double.parseDouble(tf_prixReduit.getText());
+        int quantite = Integer.parseInt(tf_stock.getText());
+        boolean enstock = true;
+        int seuil = Integer.parseInt(tf_seuil.getText());
         
-      //  Produit test = new Produit(tf_titreAff.getText(),tf_auteurAff.getText(), tf_editeurAff.getText(),tf_resume.getText(),Integer.valueOf(tf_anneeEditionAff.getText()),cb_categoriesAff.getSelectedItem().toString(),cb_sousCategoriesAff.getSelectedItem().toString()Double.valueOf(tf_prix.getText()),Double.valueOf(tf_prixReduit.getText()),Integer.valueOf(tf_stock.getText()) );
-      Produit test = new Produit();
-        Produit.modifierProduit(test);//marche pas --> voir avec un produit en dur ? 
+        if (Integer.valueOf(tf_stock.getText()) < 0) enstock=false;
+        
+        String cat = cb_categoriesAff.getSelectedItem().toString();
+        int idCat = CategorieProduitDAO.findIdCategorieProduit((String) cat);
+     //   String souscat = cb_sousCategoriesAff.getSelectedItem().toString();
+        int idSousCat = SousCategorieProduitDAO.findIdSousCategorieProduitByIdCat(idCat);
+        
+        //OU//
+        
+        
+       // CategorieProduit cat = getCategorieFromString(cb_categoriesAff.getSelectedItem().toString())
+        
+        
+
+        Produit testid = new Produit(titre,prix,description ,auteur,editeur , annee,prixReduit,quantite, enstock, seuil, idCat, idSousCat,false);
+        ProduitDAO.updateProduit(testid);
 
 
     }//GEN-LAST:event_btn_modifActionPerformed
 
     private void btn_ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ajouterActionPerformed
-        // TODO add your handling code here: public Produit(String titre, String auteur, String editeur, String description,
-           // int annee, CategorieProduit categorie, String sousCategorie, Double prix, Double remise,
-         //   boolean enStock, boolean enPromo, int quantite, int seuil, String img) {
-        // Produit test = new Produit(tf_titreAff.getText(),tf_auteurAff.getText(), tf_editeurAff.getText(),tf_resume.getText(),
-     // Integer.valueOf(tf_anneeEditionAff.getText()), cb_categoriesAff.getSelectedItem().toString(),cb_sousCategoriesAff.getSelectedItem().toString(), Double.valueOf(tf_prix.getText()),Double.valueOf(tf_prixReduit.getText()),Integer.valueOf(tf_stock.getText()));
-     //  Produit p = new Produit("UHUHUHU", "auteur", "editeur", "description", 2000, CategorieProduit.J, "Enfants", 1.00, 1.00, true, false, 15, 1, "url");
-        Produit.ajouterProduit(test);
+        // TODO add your handling code here: 
+   
+        
+        
+        String titre= tf_titreAff.getText();
+        double prix = Double.parseDouble(tf_prix.getText());
+        String description = tf_resume.getText();
+        String auteur = tf_auteurAff.getText();
+        String editeur = tf_editeurAff.getText();
+        int annee = Integer.parseInt(tf_anneeEditionAff.getText());
+        double prixReduit = Double.parseDouble(tf_prixReduit.getText());
+        int quantite = Integer.parseInt(tf_stock.getText());
+        boolean enstock = true;
+        int seuil = Integer.parseInt(tf_seuil.getText());
+        
+        if (Integer.valueOf(tf_stock.getText()) < 0) enstock=false;
+        
+        String cat = cb_categoriesAff.getSelectedItem().toString();
+        int idCat = CategorieProduitDAO.findIdCategorieProduit((String) cat);
+        String souscat = cb_sousCategoriesAff.getSelectedItem().toString();
+        int idSousCat = SousCategorieProduitDAO.findIdSousCategorieProduitByIdCat(idCat);
+        
+        
+        //OU//
+        
+        
+       // CategorieProduit cat = getCategorieFromString(cb_categoriesAff.getSelectedItem().toString())
+        boolean enPromo = false;
+        
+
+        Produit testid = new Produit(titre,prix,description ,auteur,editeur , annee,prixReduit,quantite, enstock, seuil, idCat, idSousCat, false);
+       // Produit testCat = new Produit(titre,prix,description ,auteur,editeur , annee,prixReduit,quantite, enstock, seuil,getCategorieFromString(cb_categoriesAff.getSelectedItem().toString()) , souscat);
+
+        ProduitDAO.insertProduit(testid);
     }//GEN-LAST:event_btn_ajouterActionPerformed
 
     private void tf_anneeEditionAffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_anneeEditionAffActionPerformed
@@ -1052,37 +1061,25 @@ public class FenAcceuil extends javax.swing.JFrame {
         // TODO add your handling code here:
         //rajouter un message si le produit rechercher n'existe pas + eviter casse/MAJUSCULE
         //ne trouve pas les produit déjà ajoutés
-        try {
-
-            con = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
-            Statement stat = con.createStatement();
-            ResultSet result = stat.executeQuery("SELECT * FROM produit INNER JOIN categorie c "
-                    + "ON c.id_categorie = produit.id_categorie INNER JOIN sous_categorie s "
-                    + "ON s.id_sous_categorie = produit.id_sous_categorie WHERE titre='" + tf_titre.getText() + "'");//
-
-            while (result.next()) {
-                tf_id.setText(result.getString("id_produit")); //attention ID = int, peut etre cast
-                tf_titreAff.setText(result.getString("titre"));
-                tf_prix.setText(result.getString("prix"));
-                tf_resume.setText(result.getString("resumé"));
-                tf_auteurAff.setText(result.getString("auteur"));
-                tf_editeurAff.setText(result.getString("editeur"));
-                tf_stock.setText(result.getString("stock"));
-                tf_anneeEditionAff.setText(result.getString("anne_edition"));
-                tf_prixReduit.setText(result.getString("prix_reduit"));
-
-                tf_enPromo.setText(result.getString("en_promotion"));
-                tf_seuil.setText(result.getString("seuil"));
-                cb_categoriesAff.setSelectedItem(result.getString("nom_categorie"));
-                cb_sousCategoriesAff.setSelectedItem(result.getString("nom_sous_cat"));
-
-            }
-
-            con.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+       
+                Produit result = ProduitDAO.RechercheProduitByTitre(tf_titre.getText());
+                tf_id.setText(String.valueOf(result.getId())); 
+                tf_titreAff.setText(result.getTitre());
+                tf_prix.setText(String.valueOf(result.getPrix()));
+                tf_resume.setText(result.getDescription());
+                tf_auteurAff.setText(result.getAuteur());
+                tf_editeurAff.setText(result.getEditeur());
+                tf_anneeEditionAff.setText(String.valueOf(result.getAnnee()));
+                tf_prixReduit.setText(String.valueOf(result.getRemise()));
+                tf_stock.setText(String.valueOf(result.getQuantite()));
+                tf_seuil.setText(String.valueOf(result.getSeuil()));
+                cb_categoriesAff.setSelectedIndex(result.getIdCat());
+                cb_sousCategoriesAff.setSelectedItem(result.getSousCategorie()); //a trouver
+                cb_enPromo.isSelected();
+   
+                
+                
+       
     }//GEN-LAST:event_btn_rechercherActionPerformed
 
     private void btn_effacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_effacerActionPerformed

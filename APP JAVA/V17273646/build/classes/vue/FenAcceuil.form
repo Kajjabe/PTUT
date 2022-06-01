@@ -544,6 +544,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="tf_seuil" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cb_enPromo" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="lbl_prix" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="tf_prix" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -553,7 +554,6 @@
                                   <Component id="tf_prixReduit" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_prixReduit" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_seuil" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cb_enPromo" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
