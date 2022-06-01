@@ -6,7 +6,7 @@ if(isset($_POST['adresse_mail']) && isset($_POST['password']))
 
 
     $host = 'localhost';
-    $dbname = 'tp33';
+    $dbname = 'tp42';
     $user = 'root';
     $pass = '';
 
@@ -17,7 +17,7 @@ if(isset($_POST['adresse_mail']) && isset($_POST['password']))
 
 
 
-     or die('could not connect to database');
+    or die('could not connect to database');
 
     // on applique les deux fonctions mysqli_real_escape_string et htmlspecialchars
     // pour éliminer toute attaque de type injection SQL et XSS

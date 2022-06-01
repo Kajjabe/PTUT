@@ -417,16 +417,16 @@ https://templatemo.com/tm-516-known
   .caption h3 a:hover { color: #FF3; }
 
   .home-slider .item-first {
-    background-image: url(../images/slider-image-1-1920x700.jpg);
+    background-image: url(../images/peter_pan.jpg);
 	background-position: center;
   }
 
   .home-slider .item-second {
-    background-image: url(../images/slider-image-2-1920x700.jpg);
+    background-image: url(../images/batman.jpg);
   }
 
   .home-slider .item-third {
-    background-image: url(../images/slider-image-3-1920x700.jpg);
+    background-image: url(../images/nos_etoiles_contraires.jpg);
   }
 
   /* pour fichier formulaire /fichier register*/
@@ -539,9 +539,30 @@ https://templatemo.com/tm-516-known
     border: 1px solid #53af57;
   }
 
+/*---------------------------------------
+   fichier littérature - pour le catalogue affichier par sous catégorie dans la page
+-----------------------------------------*/
+
+  .produits {
+    list-style: none;
+    display:flex;
+    flex-wrap: wrap;
+  }
+  .produits li{
+    flex-basis: 30%;
+    /*position:relative;*/
+    display: inline-block;
+  }
+  .produits ul{
+    text-align: center;
+  }
 
 
+  .boutique-produit:hover{ background: #c0c0c0; }
 
+ /*-- -fin fichier littérature --*/
+
+/**************************************************** GENERAL ************************************************/
   /*---------------------------------------
       FEATURE              
   -----------------------------------------*/
@@ -883,11 +904,11 @@ https://templatemo.com/tm-516-known
     color: #ffffff;
   }
   
-#inscription input
-{
-  width: 50%;
-  align-content: center;
-}
+  #inscription input
+  {
+    width: 50%;
+    align-content: center;
+  }
 
 
   /*---------------------------------------

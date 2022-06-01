@@ -56,10 +56,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categorie <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="config.php">Littérature</a></li>
-                        <li><a href="terms.php">Jeunesse</a></li>
-                        <li><a href="terms.html">BD et Mans</a></li>
-                        <li><a href="terms.html">Art et Culture</a></li>
+                        <li><a href="produits.php">Tous les produits</a></li>
+                        <li><a href="litterature.php">Choix catégories et sous-catégories</a></li>
+
                     </ul>
                 </li>
                 <!--Fin afficher categorie -->
