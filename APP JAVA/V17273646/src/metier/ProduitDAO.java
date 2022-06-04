@@ -5,6 +5,7 @@
  */
 package metier;
 
+import static java.lang.System.exit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,12 +30,19 @@ public class ProduitDAO {
     public static String PASSWORD = "";
 
     //AJOUTER UN PRODUIT
+
+    /** Méthode qui ajoute un produit à la base de données
+     *
+     * @param prod : le produit a ajouter
+     */
     public static void insertProduit(Produit prod) {
         String sql = "insert into produit "
-                    + "(titre, prix, resumé, auteur, editeur, anne_edition, prix_reduit, "
-                    + "stock, en_stock, seuil,  id_categorie, id_sous_categorie, en_promotion)"
-                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        
+                + "(titre, prix, resumé, auteur, editeur, anne_edition, prix_reduit, "
+                + "stock, en_stock, seuil,  id_categorie, id_sous_categorie, en_promotion)"
+                + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        JFrame frame = new JFrame();
+
         try {
             conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
             PreparedStatement st = conn.prepareStatement(sql);
@@ -54,13 +64,19 @@ public class ProduitDAO {
             st.setInt(12, prod.getIdSousCat());
             st.setBoolean(13, prod.isEnPromo());
             st.execute();
-            System.out.println(prod.getTitre() + " saved into database");
+
+            JOptionPane.showMessageDialog(frame, "Le produit a bien été ajouté !");
+
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("unable to insert the product");
+            JOptionPane.showMessageDialog(frame, "Erreur - impossible d'ajouter le produit.");
         }
     }
 
+    /** Méthode qui retourne la liste des produits
+     *
+     * @return la liste des produits
+     */
     public static List<Produit> getListeDesProduitsDAO() {
         ArrayList reponse = new ArrayList();
         String sql = "SELECT * FROM produit";
@@ -78,9 +94,13 @@ public class ProduitDAO {
 
     }
 
-    //PAS ENCORE POSSIBLE D'UPDATE LES CATEGORIES CAR CLES ETRANGERES
-    //Ne marche plus --> pourtant j'ai le message de succès
+
+    /** Méthode qui permet de modifier un produit
+     *
+     * @param prod : le produit à modifier
+     */
     public static void updateProduit(Produit prod) {
+        JFrame frame = new JFrame();
 
         try {
             conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
@@ -96,6 +116,9 @@ public class ProduitDAO {
             st.setString(3, prod.getDescription());
             st.setString(4, prod.getAuteur());
             st.setString(5, prod.getEditeur());
+            if (verifAnnee(prod.getAnnee()) == false) {
+                return;
+            }
             st.setInt(6, prod.getAnnee());
             st.setDouble(7, prod.getRemise());
             st.setInt(8, prod.getQuantite());
@@ -104,37 +127,67 @@ public class ProduitDAO {
 
             st.executeUpdate();
 
-            System.out.println(prod.getTitre() + " saved into database");
+            JOptionPane.showMessageDialog(frame, "Le produit a bien été modifié !");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("unable to update the product");
+            JOptionPane.showMessageDialog(frame, "Erreur - impossible de modifier le produit.");
+
         }
 
     }
 
+    /** Méthode qui permet de vérifier le format de l'année
+     *
+     * @param annee : l'année indiquée
+     * @return true si l'année est au bon format, false sinon
+     */
+    public static boolean verifAnnee(int annee) {
+        JFrame frame = new JFrame();
+
+        if (annee > 9999) {
+            JOptionPane.showMessageDialog(frame, "Erreur - l'année ne correspond pas à ce qui est attendu. Exemple : 2002 ");
+            return false;
+        }
+
+        return true;
+    }
+
+    /** Supprime un produit de la base de données
+     *
+     * @param p : produit à supprimer
+     */
     public static void supprimerProduit(Produit p) {
+        JFrame frame = new JFrame();
         try {
             conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
             int id = p.getId();
             String query = "Delete from PRODUIT where id_produit= '" + id + "'";
             Statement supp = conn.createStatement();
             supp.executeUpdate(query);
-            //JOptionPane.showMessageDialog(this, "Le produit a bien été supprimé !");
-            System.out.println("produit supprimé de la BDD");
+
+            
+            JOptionPane.showMessageDialog(frame, "Le produit a bien été supprimé !");
 
         } catch (SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(frame, "Erreur - impossible supprier le produit.");
+            
         }
 
     }
 
+    /**
+     *
+     * @param titre : titre du produit à rechercher
+     * @return le produit recherché
+     */
     public static Produit RechercheProduitByTitre(String titre) {
+        Produit p = new Produit();
         try {
             conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
             PreparedStatement st = conn.prepareStatement("select * from produit where titre ='" + titre + "'");
-  
+
             ResultSet rs = st.executeQuery();
-            Produit p = new Produit();
 
             while (rs.next()) {
                 p.setId(rs.getInt("id_produit"));
@@ -153,11 +206,12 @@ public class ProduitDAO {
                 p.setEnPromo(rs.getBoolean("en_promotion"));
 
             }
-            return p;
+
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+
         }
+        return p;
     }
 
 }

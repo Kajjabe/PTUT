@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import static metier.CategorieProduit.getLesCategoriesProduit;
 
 /**
@@ -26,9 +28,14 @@ public class CategorieProduitDAO {
      *
      */
     public static Connection conn;
+
     public static String HOST = "jdbc:mysql://localhost:3306/tp33?zeroDateTimeBehavior=convertToNull";
+
     public static String USERNAME = "root";
+
     public static String PASSWORD = "";
+
+    public static ArrayList<CategorieProduit> listeCat = new ArrayList<>();
 
     /**
      * Méthode qui ajoute une catégorie à la base de donnée
@@ -36,30 +43,38 @@ public class CategorieProduitDAO {
      * @param s : nom de la catégorie à inserer (String)
      */
     public static void insertCategorieProduit(String s) {
+        JFrame frame = new JFrame();
         try {
             conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
-            PreparedStatement st = conn.prepareStatement("insert into categorie (nom) values (?)");
+            PreparedStatement st = conn.prepareStatement("insert into categorie (nom_categorie) values (?)");
             st.setString(1, s);
             st.execute();
-            System.out.println(s + " saved into the database");
+
+            JOptionPane.showMessageDialog(frame, "La catégrie a bien été ajoutée !");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("unable to save the category");
+            JOptionPane.showMessageDialog(frame, "Erreur - impossible d'ajouter la catégorie.");
         }
     }
 
+    /** Methode qui supprime une catégorie de la base de donnée
+     *
+     * @param nomCat : nom de la catégorie à supprimer (String)
+     */
     public static void supprimerCategorie(String nomCat) {
+        JFrame frame = new JFrame();
         try {
             conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
             int id = findIdCategorieProduit(nomCat);
             String query = "Delete from categorie where id_categorie= '" + id + "'";
             Statement supp = conn.createStatement();
             supp.executeUpdate(query);
+            JOptionPane.showMessageDialog(frame, "La catégrie a bien été supprimée !");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("unable to save the category");
+            JOptionPane.showMessageDialog(frame, "Erreur - impossible de supprimerla catégorie.");
         }
     }
 
@@ -88,6 +103,10 @@ public class CategorieProduitDAO {
         return id;
     }
 
+    /** Méthode qui renvoi la liste des catégories
+     *
+     * @return liste des catégories
+     */
     public static ArrayList<Categorie> getAllCategories() {
         ArrayList<Categorie> reponse = new ArrayList<Categorie>();
         String sql = "SELECT * FROM categorie;";

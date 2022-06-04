@@ -30,9 +30,9 @@ public class SousCategorieProduitDAO {
     public static String PASSWORD = "";
 
     /**
-     * Méthode qui ajoute une catégorie à la base de donnée
+     * Méthode qui ajoute une sous-catégorie à la base de donnée
      *
-     * @param s : nom de la catégorie à insérer
+     * @param s : nom de la sous-catégorie à insérer
      */
     public void insertSousCategorieProduit(String s) {
         try {

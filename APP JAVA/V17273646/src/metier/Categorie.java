@@ -10,6 +10,7 @@
 package metier;
 
 import java.util.ArrayList;
+import metier.SousCategorie;
 
 /**
  *

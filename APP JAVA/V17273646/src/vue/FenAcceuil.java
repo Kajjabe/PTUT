@@ -1,9 +1,11 @@
-/*
+/** Vue de l'application 
+ * 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package vue;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +13,13 @@ import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import metier.*;
 
 /**
  *
- * @author pc
+ * @author Marie MICHEL
  */
 public class FenAcceuil extends javax.swing.JFrame {
 
@@ -29,6 +32,9 @@ public class FenAcceuil extends javax.swing.JFrame {
     private ComboBoxModel<String> modeleDesSousCategories;
     private List<Produit> lesProduitsTrouves;
 
+    /**
+     *
+     */
     public FenAcceuil() {
 
         //Recupérer les catégories produit pour definir un model de combobox
@@ -65,6 +71,10 @@ public class FenAcceuil extends javax.swing.JFrame {
         }
 
     }
+    
+
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,22 +110,22 @@ public class FenAcceuil extends javax.swing.JFrame {
         tf_editeurAff = new javax.swing.JTextField();
         tf_auteurAff = new javax.swing.JTextField();
         tf_anneeEditionAff = new javax.swing.JTextField();
-        pan_modif = new javax.swing.JPanel();
-        lbl_resume = new javax.swing.JLabel();
-        lbl_prix = new javax.swing.JLabel();
-        lbl_enPromo = new javax.swing.JLabel();
-        lbl_prixReduit = new javax.swing.JLabel();
-        lbl_seuil = new javax.swing.JLabel();
-        tf_resume = new javax.swing.JTextField();
-        tf_prixReduit = new javax.swing.JTextField();
-        tf_prix = new javax.swing.JTextField();
         tf_seuil = new javax.swing.JTextField();
-        lbl_stock = new javax.swing.JLabel();
+        lbl_seuil = new javax.swing.JLabel();
         tf_stock = new javax.swing.JTextField();
+        lbl_stock = new javax.swing.JLabel();
         cb_enPromo = new javax.swing.JCheckBox();
+        lbl_enPromo = new javax.swing.JLabel();
+        tf_prixReduit = new javax.swing.JTextField();
+        lbl_prixReduit = new javax.swing.JLabel();
+        tf_prix = new javax.swing.JTextField();
+        lbl_prix = new javax.swing.JLabel();
+        lbl_resume = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tf_resume = new javax.swing.JTextArea();
+        btn_supprimer = new javax.swing.JButton();
         btn_ajouter = new javax.swing.JButton();
         btn_modif = new javax.swing.JButton();
-        btn_supprimer = new javax.swing.JButton();
         btn_modif1 = new javax.swing.JButton();
         pan_categories = new javax.swing.JPanel();
         panGestionCategorie = new javax.swing.JPanel();
@@ -313,88 +323,7 @@ public class FenAcceuil extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout pan_affichageLayout = new javax.swing.GroupLayout(pan_affichage);
-        pan_affichage.setLayout(pan_affichageLayout);
-        pan_affichageLayout.setHorizontalGroup(
-            pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan_affichageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbl_id)
-                    .addComponent(lbl_titreAff1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan_affichageLayout.createSequentialGroup()
-                        .addComponent(tf_id, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_catAff, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tf_titreAff, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan_affichageLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cb_categoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(lbl_sousCatAff)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cb_sousCategoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121))
-                    .addGroup(pan_affichageLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lbl_auteur, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_auteurAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_editeur, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_editeurAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_anneEdition)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_anneeEditionAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))))
-        );
-        pan_affichageLayout.setVerticalGroup(
-            pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan_affichageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_id)
-                    .addComponent(lbl_catAff)
-                    .addComponent(cb_categoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_sousCatAff)
-                    .addComponent(cb_sousCategoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_titreAff1)
-                    .addComponent(tf_titreAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_auteur)
-                    .addComponent(tf_auteurAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_editeur)
-                    .addComponent(tf_editeurAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tf_anneeEditionAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_anneEdition))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        pan_modif.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        pan_modif.setPreferredSize(new java.awt.Dimension(1088, 251));
-
-        lbl_resume.setText("Résumé :");
-
-        lbl_prix.setText("Prix :");
-
-        lbl_enPromo.setText("En promotion ? :");
-
-        lbl_prixReduit.setText("Prix réduit :");
-
         lbl_seuil.setText("Seuil alerte :");
-
-        tf_prix.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_prixActionPerformed(evt);
-            }
-        });
 
         lbl_stock.setText("Quantité en stock :");
 
@@ -404,60 +333,30 @@ public class FenAcceuil extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout pan_modifLayout = new javax.swing.GroupLayout(pan_modif);
-        pan_modif.setLayout(pan_modifLayout);
-        pan_modifLayout.setHorizontalGroup(
-            pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan_modifLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_resume)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan_modifLayout.createSequentialGroup()
-                        .addComponent(lbl_prix, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tf_prix, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_prixReduit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_prixReduit, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbl_enPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cb_enPromo)
-                        .addGap(34, 34, 34)
-                        .addComponent(lbl_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tf_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_seuil, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tf_seuil, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tf_resume, javax.swing.GroupLayout.DEFAULT_SIZE, 970, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pan_modifLayout.setVerticalGroup(
-            pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan_modifLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tf_resume, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_resume))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tf_seuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cb_enPromo)
-                    .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbl_prix)
-                        .addComponent(tf_prix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_enPromo)
-                        .addComponent(tf_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_stock)
-                        .addComponent(tf_prixReduit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_prixReduit)
-                        .addComponent(lbl_seuil)))
-                .addContainerGap())
-        );
+        lbl_enPromo.setText("En promotion ? :");
+
+        lbl_prixReduit.setText("Prix réduit :");
+
+        tf_prix.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_prixActionPerformed(evt);
+            }
+        });
+
+        lbl_prix.setText("Prix :");
+
+        lbl_resume.setText("Résumé :");
+
+        tf_resume.setColumns(20);
+        tf_resume.setRows(5);
+        jScrollPane2.setViewportView(tf_resume);
+
+        btn_supprimer.setText("Supprimer");
+        btn_supprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_supprimerActionPerformed(evt);
+            }
+        });
 
         btn_ajouter.setText("Ajouter");
         btn_ajouter.addActionListener(new java.awt.event.ActionListener() {
@@ -473,13 +372,6 @@ public class FenAcceuil extends javax.swing.JFrame {
             }
         });
 
-        btn_supprimer.setText("Supprimer");
-        btn_supprimer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_supprimerActionPerformed(evt);
-            }
-        });
-
         btn_modif1.setBackground(new java.awt.Color(255, 204, 204));
         btn_modif1.setText("Suivant");
         btn_modif1.addActionListener(new java.awt.event.ActionListener() {
@@ -488,46 +380,174 @@ public class FenAcceuil extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout pan_affichageLayout = new javax.swing.GroupLayout(pan_affichage);
+        pan_affichage.setLayout(pan_affichageLayout);
+        pan_affichageLayout.setHorizontalGroup(
+            pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan_affichageLayout.createSequentialGroup()
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan_affichageLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_supprimer)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_ajouter, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(pan_affichageLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pan_affichageLayout.createSequentialGroup()
+                                .addComponent(lbl_prix, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tf_prix, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
+                                .addComponent(lbl_prixReduit)
+                                .addGap(18, 18, 18)
+                                .addComponent(tf_prixReduit, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(107, 107, 107)
+                                .addComponent(lbl_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tf_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pan_affichageLayout.createSequentialGroup()
+                                .addComponent(lbl_enPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cb_enPromo)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan_affichageLayout.createSequentialGroup()
+                        .addComponent(lbl_seuil, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tf_seuil, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan_affichageLayout.createSequentialGroup()
+                        .addComponent(btn_modif, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(btn_modif1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(pan_affichageLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(lbl_resume)
+                .addGap(12, 12, 12)
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan_affichageLayout.createSequentialGroup()
+                        .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pan_affichageLayout.createSequentialGroup()
+                                .addGap(34, 144, Short.MAX_VALUE)
+                                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan_affichageLayout.createSequentialGroup()
+                                        .addComponent(lbl_auteur, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tf_auteurAff, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan_affichageLayout.createSequentialGroup()
+                                        .addComponent(lbl_catAff, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(cb_categoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(pan_affichageLayout.createSequentialGroup()
+                                .addComponent(lbl_id)
+                                .addGap(18, 18, 18)
+                                .addComponent(tf_id, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbl_titreAff1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(tf_titreAff, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(98, 98, 98)
+                        .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pan_affichageLayout.createSequentialGroup()
+                                .addComponent(lbl_sousCatAff)
+                                .addGap(18, 18, 18)
+                                .addComponent(cb_sousCategoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pan_affichageLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_editeur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_anneEdition, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(30, 30, 30)
+                                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tf_editeurAff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tf_anneeEditionAff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(97, 97, 97))
+                    .addGroup(pan_affichageLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 957, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+        pan_affichageLayout.setVerticalGroup(
+            pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan_affichageLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_catAff)
+                    .addComponent(cb_categoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_sousCatAff)
+                    .addComponent(cb_sousCategoriesAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan_affichageLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_titreAff1)
+                            .addComponent(tf_titreAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_editeur)
+                            .addComponent(tf_editeurAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan_affichageLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_id))
+                        .addGap(17, 17, 17)))
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_anneEdition)
+                    .addComponent(tf_anneeEditionAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_auteurAff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_auteur))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_resume)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan_affichageLayout.createSequentialGroup()
+                        .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_prix)
+                            .addComponent(tf_prix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_prixReduit)
+                            .addComponent(tf_prixReduit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_stock)
+                            .addComponent(tf_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_seuil)
+                            .addComponent(tf_seuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addComponent(lbl_enPromo))
+                    .addComponent(cb_enPromo, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(15, 15, 15)
+                .addGroup(pan_affichageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_supprimer)
+                    .addComponent(btn_ajouter)
+                    .addComponent(btn_modif)
+                    .addComponent(btn_modif1))
+                .addGap(27, 27, 27))
+        );
+
         javax.swing.GroupLayout pan_produitsLayout = new javax.swing.GroupLayout(pan_produits);
         pan_produits.setLayout(pan_produitsLayout);
         pan_produitsLayout.setHorizontalGroup(
             pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan_produitsLayout.createSequentialGroup()
-                .addGap(253, 253, 253)
-                .addComponent(pan_rechercheProduits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pan_produitsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pan_produitsLayout.createSequentialGroup()
-                        .addComponent(btn_supprimer)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_ajouter, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_modif, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(btn_modif1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(pan_modif, javax.swing.GroupLayout.DEFAULT_SIZE, 1082, Short.MAX_VALUE)
-                        .addComponent(pan_affichage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1066, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(253, 253, 253)
+                        .addComponent(pan_rechercheProduits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan_produitsLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(pan_affichage, javax.swing.GroupLayout.PREFERRED_SIZE, 1116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         pan_produitsLayout.setVerticalGroup(
             pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan_produitsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pan_rechercheProduits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pan_affichage, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pan_modif, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pan_produitsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_supprimer)
-                    .addComponent(btn_ajouter)
-                    .addComponent(btn_modif)
-                    .addComponent(btn_modif1))
-                .addContainerGap(283, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addComponent(pan_affichage, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(190, Short.MAX_VALUE))
         );
 
         tpan_accueil.addTab("Produits", pan_produits);
@@ -651,7 +671,7 @@ public class FenAcceuil extends javax.swing.JFrame {
             .addGroup(pan_categoriesLayout.createSequentialGroup()
                 .addGap(194, 194, 194)
                 .addComponent(panGestionCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(216, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan_categoriesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bt_cate_valider)
@@ -673,7 +693,7 @@ public class FenAcceuil extends javax.swing.JFrame {
         pan_promotions.setLayout(pan_promotionsLayout);
         pan_promotionsLayout.setHorizontalGroup(
             pan_promotionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1112, Short.MAX_VALUE)
+            .addGap(0, 1200, Short.MAX_VALUE)
         );
         pan_promotionsLayout.setVerticalGroup(
             pan_promotionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -815,7 +835,7 @@ public class FenAcceuil extends javax.swing.JFrame {
                 .addGroup(pan_clientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pan_rechercheProduits1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
         pan_clientsLayout.setVerticalGroup(
             pan_clientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1055,7 +1075,7 @@ private void affecterDetailCBBox(String ch, JComboBox cbb) {
 
         }
     }//GEN-LAST:event_btn_supprimerActionPerformed
-//Ne marche plus
+
     private void btn_modifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modifActionPerformed
         // Modifier un produit (ne modifie pas les id catégorie et sous-catégorie):
         if (tf_titreAff.getText().isEmpty() || tf_auteurAff.getText().isEmpty() || tf_editeurAff.getText().isEmpty() || tf_anneeEditionAff.getText().isEmpty() || tf_resume.getText().isEmpty() || tf_prix.getText().isEmpty() || tf_stock.getText().isEmpty()) {
@@ -1070,6 +1090,7 @@ private void affecterDetailCBBox(String ch, JComboBox cbb) {
             String auteur = tf_auteurAff.getText();
             String editeur = tf_editeurAff.getText();
             int annee = Integer.parseInt(tf_anneeEditionAff.getText());
+    
             Double prixReduit = Double.parseDouble(tf_prixReduit.getText());
             int quantite = Integer.parseInt(tf_stock.getText());
             boolean enstock = true;
@@ -1086,30 +1107,6 @@ private void affecterDetailCBBox(String ch, JComboBox cbb) {
 
             Produit testid = new Produit(titre, prix, description, auteur, editeur, annee, prixReduit, quantite, enstock, seuil, idCat, idSousCat, false);
 
-            /*String update ="UPDATE produit p SET titre=?,prix=?, resumé=?, auteur=?, editeur=?, "
-                    + "anne_edition=?, prix_reduit=?, stock=?, "
-                    + "seuil=?, en_promotion=? WHERE id_produit='" + tf_id.getText()+"'";
-           try{ 
-               conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
-               
-               PreparedStatement st = conn.prepareStatement(update);
-           st.setString(1, titre);
-
-            st.setDouble(2, prix);
-            st.setString(3, description);
-            st.setString(4, auteur);
-            st.setString(5, editeur);
-            st.setInt(6, annee);
-            st.setDouble(7, prixReduit);
-            st.setInt(8, quantite);
-            st.setInt(9,seuil);
-            st.setBoolean(10, false);
-            
-            st.execute();
-           }catch(SQLException e){
-               e.printStackTrace();
-               
-           }*/
             ProduitDAO.updateProduit(testid);
 
         }
@@ -1200,14 +1197,11 @@ private void affecterDetailCBBox(String ch, JComboBox cbb) {
     }//GEN-LAST:event_cbb_categorieGestionActionPerformed
 
     private void bt_supprimerCategorie2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_supprimerCategorie2ActionPerformed
-        // attention : on ne pourra supprimer la catégorie que s'il n'y a plus
-        // aucun produit de cette catégorie
-        // idée : afficher la liste des produits concernés
         //Ne vérifie pas si la liste des produits est vide
         //if (lesProduits.isEmpty()){
         String cat = cbb_categorieGestion.getSelectedItem().toString();
         CategorieProduitDAO.supprimerCategorie(cat);
-        // }
+  
 
     }//GEN-LAST:event_bt_supprimerCategorie2ActionPerformed
 
@@ -1320,6 +1314,7 @@ private void affecterDetailCBBox(String ch, JComboBox cbb) {
 
     private void mi_produitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_produitsActionPerformed
         // TODO add your handling code here:
+        tpan_accueil.setSelectedComponent(pan_produits);
     }//GEN-LAST:event_mi_produitsActionPerformed
 
     private void cb_sousCategoriesAffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_sousCategoriesAffActionPerformed
@@ -1365,6 +1360,7 @@ private void affecterDetailCBBox(String ch, JComboBox cbb) {
     private javax.swing.JComboBox<String> cbb_sousCategorieGestion;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lbl_anneEdition;
@@ -1404,7 +1400,6 @@ private void affecterDetailCBBox(String ch, JComboBox cbb) {
     private javax.swing.JPanel pan_affichage;
     private javax.swing.JPanel pan_categories;
     private javax.swing.JPanel pan_clients;
-    private javax.swing.JPanel pan_modif;
     private javax.swing.JPanel pan_produits;
     private javax.swing.JPanel pan_promotions;
     private javax.swing.JPanel pan_rechercheProduits;
@@ -1422,7 +1417,7 @@ private void affecterDetailCBBox(String ch, JComboBox cbb) {
     private javax.swing.JTextField tf_prenomClient;
     private javax.swing.JTextField tf_prix;
     private javax.swing.JTextField tf_prixReduit;
-    private javax.swing.JTextField tf_resume;
+    private javax.swing.JTextArea tf_resume;
     private javax.swing.JTextField tf_seuil;
     private javax.swing.JTextField tf_stock;
     private javax.swing.JTextField tf_titre;

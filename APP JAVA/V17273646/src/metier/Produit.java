@@ -43,22 +43,7 @@ public class Produit implements Comparable<Object> {
         listeDesProduits.add(this);
     }
 
-    public Produit(String titre, String auteur, String editeur, String resume, int annee,
-            CategorieProduit categorie, String sousCat, Double prix, Double prix_reduit, int stock) {
 
-        this.titre = titre;
-        this.auteur = auteur;
-        this.editeur = editeur;
-        this.description = resume;
-        this.annee = annee;
-        this.categorie = categorie;
-        this.sousCategorie = sousCat;
-        this.prix = prix;
-        this.remise = prix_reduit;
-        this.quantite = stock;
-
-        listeDesProduits.add(this);
-    }
 
     public Produit(String titre, String auteur, String editeur, String description,
             int annee, CategorieProduit categorie, String sousCategorie, Double prix, Double remise,
