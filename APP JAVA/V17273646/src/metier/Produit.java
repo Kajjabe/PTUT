@@ -1,27 +1,24 @@
-/*
+/** Classe métier Produit
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package metier;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  *
- * @author pc
+ * @author Marie MICHEL
  */
 public class Produit implements Comparable<Object> {
 
     public static List<Produit> listeDesProduits = new ArrayList<>();
 
-
     private int id;
 
-    private String titre, auteur, editeur, description; 
+    private String titre, auteur, editeur, description;
     private CategorieProduit categorie;
     private String sousCategorie;
     private int idCat;
@@ -36,9 +33,11 @@ public class Produit implements Comparable<Object> {
 
     // public static List<String> ListeDesCategories = new ArrayList<>();
     //public static List<String> ListeDesSousCategories = new ArrayList<>();
-    
-    
-    //constructeur minimal
+    //constructeurs
+    public Produit() {
+
+    }
+
     public Produit(int id) {
         this.id = id;
         listeDesProduits.add(this);
@@ -46,7 +45,6 @@ public class Produit implements Comparable<Object> {
 
     public Produit(String titre, String auteur, String editeur, String resume, int annee,
             CategorieProduit categorie, String sousCat, Double prix, Double prix_reduit, int stock) {
-
 
         this.titre = titre;
         this.auteur = auteur;
@@ -58,27 +56,6 @@ public class Produit implements Comparable<Object> {
         this.prix = prix;
         this.remise = prix_reduit;
         this.quantite = stock;
-
-        listeDesProduits.add(this);
-    }
-
-    public Produit(String titre, CategorieProduit categorie, String description,
-            Double prix, int quantite, int seuil) {
-
-        this.titre = titre;
-        this.categorie = categorie;
-        this.description = description;
-        this.prix = prix;
-        this.quantite = quantite;
-        this.seuil = seuil;
-
-        listeDesProduits.add(this);
-    }
-
-    public Produit(String titre, Double prix) {
-        this.titre = titre;
-        this.prix = prix;
-
 
         listeDesProduits.add(this);
     }
@@ -104,8 +81,6 @@ public class Produit implements Comparable<Object> {
 
         listeDesProduits.add(this);
     }
-    
-
 
     //constructeur comprenant les id categories / id sous-cat 
     public Produit(String titre, Double prix, String description, String auteur, String editeur,
@@ -130,17 +105,6 @@ public class Produit implements Comparable<Object> {
         listeDesProduits.add(this);
     }
 
-    
-
-
-
-    Produit() {
-    }
-
-
-
-
-
     /**
      * Le tri naturel des produits ici se fait sur le titre
      *
@@ -158,57 +122,6 @@ public class Produit implements Comparable<Object> {
         return categorie;
     }
 
-    /*  public int getIdCategorie(CategorieProduit c) {
-
-        if (c == CategorieProduit.L) {
-            return 1;
-        } else if (c == CategorieProduit.J) {
-            return 2;
-        } else if (c == CategorieProduit.A) {
-            return 3;
-        } else if (c == CategorieProduit.B) {
-            return 4;
-        }
-        return 0;
-    }
-
-  public int getidcategorie() {
-
-        return categorie.getId();
-    }
-
-    public int getIdSousCategorie(String s) {//marche pas
-        if (s.equals("Romans")) {
-            return 1;
-        } else if (s.equals("Polars")) {
-            return 2;
-        } else if (s.equals("Fantasy et sciences fictions")) {
-            return 3;
-        } else if (s.equals("Enfant")) {
-            return 4;
-        } else if (s.equals("Adolescant")) {
-            return 5;
-        } else if (s.equals("Jeunes adultes")) {
-            return 6;
-        } else if (s.equals("Philosophie")) {
-            return 7;
-        } else if (s.equals("Histoire")) {
-            return 8;
-        } else if (s.equals("Cinéma et musique")) {
-            return 9;
-        } else if (s.equals("BD Tout publics")) {
-            return 10;
-        } else if (s.equals("Comics")) {
-            return 11;
-        } else if (s.equals("Mangas")) {
-            return 12;
-        }
-
-        return 0;
-    }*/
-    
-    //getidcatsouscat
-
     public int getIdCat() {
         return idCat;
     }
@@ -224,7 +137,6 @@ public class Produit implements Comparable<Object> {
     public void setIdSousCat(int idSousCat) {
         this.idSousCat = idSousCat;
     }
-    
 
     public void setCategorie(CategorieProduit categorie) {
         this.categorie = categorie;
@@ -259,10 +171,6 @@ public class Produit implements Comparable<Object> {
         return listeDesProduits;
     }
 
-    /*
-    public static void setListeDesProduits(List<Produit> listeDesProduits) {
-        Produit.listeDesProduits = listeDesProduits;
-    }*/
     public String getTitre() {
         return titre;
     }
@@ -278,8 +186,6 @@ public class Produit implements Comparable<Object> {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
 
     public static int getCpt() {
         return cpt;
@@ -360,7 +266,5 @@ public class Produit implements Comparable<Object> {
     public void setImg(String img) {
         this.img = img;
     }
-
-
 
 }

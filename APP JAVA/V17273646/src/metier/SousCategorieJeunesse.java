@@ -12,19 +12,20 @@ import java.util.List;
  *
  * @author pc
  */
- public enum SousCategorieJeunesse {
-        ENF("Enfants"), ADO("Adolescents"),JA("Jeunes adultes") ;
+public enum SousCategorieJeunesse {
+    ENF("Enfants"), ADO("Adolescents"), JA("Jeunes adultes");
 
-        private final String nom;
+    private final String nom;
 
-        private SousCategorieJeunesse(String Nom) {
-            this.nom = Nom;
-        }
+    private SousCategorieJeunesse(String Nom) {
+        this.nom = Nom;
+    }
 
-        public String getNom() {
-            return nom;
-        }
-        public static List<String> getLesSousCategoriesJeunesse() {
+    public String getNom() {
+        return nom;
+    }
+
+    public static List<String> getLesSousCategoriesJeunesse() {
 
         List<String> ListeDesSousCategoriesJeunesse = new ArrayList<>();
         for (SousCategorieJeunesse c : SousCategorieJeunesse.values()) {
@@ -34,4 +35,4 @@ import java.util.List;
         return ListeDesSousCategoriesJeunesse;
 
     }
-    }
+}

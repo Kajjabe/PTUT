@@ -13,23 +13,19 @@ import java.util.List;
  * @author pc
  */
 public enum SousCategorieArtEtCulture {
-    PHILO("Philosophie",7), HIST("Histoire",8), CIN("Cinéma et musique",9);
+    PHILO("Philosophie"), HIST("Histoire"), CIN("Cinéma et musique");
 
     private final String nom;
-    private final int id;
 
-    private SousCategorieArtEtCulture(String Nom, int id) {
+    private SousCategorieArtEtCulture(String Nom) {
         this.nom = Nom;
-        this.id = id;
+
     }
 
     public String getNom() {
         return nom;
     }
-    
-    public int getId(){
-        return id;
-    }
+
     public static List<String> getLesSousCategoriesArtEtCulture() {
 
         List<String> ListeDesSousCategoriesArtEtCulture = new ArrayList<>();

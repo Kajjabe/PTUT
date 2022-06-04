@@ -1,4 +1,4 @@
-/*
+/** Classe de gestion des produits via la bdd
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,17 +24,18 @@ public class ProduitDAO {
 
     public static String HOST = "jdbc:mysql://localhost:3306/tp33?zeroDateTimeBehavior=convertToNull"; //jdbc:mysql://localhost:3306/tp33?zeroDateTimeBehavior=convertToNull [root on Default schema]
     public static String USERNAME = "root";
-    public static String PASSWORD = "";//"root"
-    
-    
+    public static String PASSWORD = "";
+
     //AJOUTER UN PRODUIT
     public static void insertProduit(Produit prod) {
-        try {
-            conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
-            PreparedStatement st = conn.prepareStatement("insert into produit "
+        String sql = "insert into produit "
                     + "(titre, prix, resumé, auteur, editeur, anne_edition, prix_reduit, "
                     + "stock, en_stock, seuil,  id_categorie, id_sous_categorie, en_promotion)"
-                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+        try {
+            conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
+            PreparedStatement st = conn.prepareStatement(sql);
 
             st.setString(1, prod.getTitre());
             st.setDouble(2, prod.getPrix());
@@ -47,8 +50,8 @@ public class ProduitDAO {
             st.setInt(11, prod.getIdCat());
             //OU
             //trouver un moyen d'affecter l'id de la categorie correspondant a CategorieProduit
-            
-            st.setInt(12,prod.getIdSousCat());
+
+            st.setInt(12, prod.getIdSousCat());
             st.setBoolean(13, prod.isEnPromo());
             st.execute();
             System.out.println(prod.getTitre() + " saved into database");
@@ -58,22 +61,36 @@ public class ProduitDAO {
         }
     }
 
-    //PAS ENCORE POSSIBLE D'UPDATE LES CATEGORIES CAR CLES ETRANGERES
-  
-    public static void updateProduit(Produit prod) {
-        
-       
-
-       
+    public static List<Produit> getListeDesProduitsDAO() {
+        ArrayList reponse = new ArrayList();
+        String sql = "SELECT * FROM produit";
         try {
             conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
-            
-            String update ="UPDATE produit p SET titre=?,prix=?, resumé=?, auteur=?, editeur=?, "
+            PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                reponse.add(rs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return reponse;
+
+    }
+
+    //PAS ENCORE POSSIBLE D'UPDATE LES CATEGORIES CAR CLES ETRANGERES
+    //Ne marche plus --> pourtant j'ai le message de succès
+    public static void updateProduit(Produit prod) {
+
+        try {
+            conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
+
+            String update = "UPDATE produit p SET titre=?,prix=?, resumé=?, auteur=?, editeur=?, "
                     + "anne_edition=?, prix_reduit=?, stock=?, "
-                    + "seuil=?, en_promotion=? WHERE id_produit=" + prod.getId();
-            
+                    + "seuil=?, en_promotion=? WHERE titre='" + prod.getTitre() + "'";
+
             PreparedStatement st = conn.prepareStatement(update);
-           st.setString(1, prod.getTitre());
+            st.setString(1, prod.getTitre());
 
             st.setDouble(2, prod.getPrix());
             st.setString(3, prod.getDescription());
@@ -82,28 +99,20 @@ public class ProduitDAO {
             st.setInt(6, prod.getAnnee());
             st.setDouble(7, prod.getRemise());
             st.setInt(8, prod.getQuantite());
-            st.setInt(9,prod.getSeuil());
-            st.setBoolean(10, prod.isEnPromo());
-  
-            
-            
+            st.setInt(9, prod.getSeuil());
+            st.setBoolean(10, false);
 
+            st.executeUpdate();
 
-            
-            int ru = st.executeUpdate();
-            
-            if (ru>0) {
-                System.out.println(prod.getTitre() + " saved into database");
-            }
-
+            System.out.println(prod.getTitre() + " saved into database");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("unable to update the product");
         }
 
     }
-    
-    public static void supprimerProduit(Produit p){
+
+    public static void supprimerProduit(Produit p) {
         try {
             conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
             int id = p.getId();
@@ -111,18 +120,19 @@ public class ProduitDAO {
             Statement supp = conn.createStatement();
             supp.executeUpdate(query);
             //JOptionPane.showMessageDialog(this, "Le produit a bien été supprimé !");
+            System.out.println("produit supprimé de la BDD");
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
     }
 
-   public static Produit RechercheProduitByTitre(String titre) {
+    public static Produit RechercheProduitByTitre(String titre) {
         try {
             conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
-            PreparedStatement st = conn.prepareStatement("select * from produit where titre ='"+titre+"'");
-            //st.setString(1, titre);
+            PreparedStatement st = conn.prepareStatement("select * from produit where titre ='" + titre + "'");
+  
             ResultSet rs = st.executeQuery();
             Produit p = new Produit();
 

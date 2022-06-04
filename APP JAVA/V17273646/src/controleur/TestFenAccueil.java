@@ -5,6 +5,8 @@
  */
 package controleur;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import javax.swing.UIManager;
 import vue.FenAcceuil;
 
 /**
@@ -40,6 +42,11 @@ public class TestFenAccueil {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    UIManager.setLookAndFeel(new FlatDarkLaf());
+                } catch (Exception e)  {
+                    System.out.println(e);
+                }
                 new FenAcceuil().setVisible(true);
             }
         });

@@ -13,19 +13,19 @@ import java.util.List;
  * @author pc
  */
 public enum SousCategorieBDEtManga {
-        BD("BD tout public"), COM("Comics"), MANGA("Manga");
+    BD("BD tout public"), COM("Comics"), MANGA("Manga");
 
-        private final String nom;
+    private final String nom;
 
-        private SousCategorieBDEtManga(String Nom) {
-            this.nom = Nom;
-        }
+    private SousCategorieBDEtManga(String Nom) {
+        this.nom = Nom;
+    }
 
-        public String getNom() {
-            return nom;
-        }
-        
-        public static List<String> getLesSousCategoriesBDEtManga() {
+    public String getNom() {
+        return nom;
+    }
+
+    public static List<String> getLesSousCategoriesBDEtManga() {
 
         List<String> ListeDesSousCategoriesBDEtManga = new ArrayList<>();
         for (SousCategorieBDEtManga c : SousCategorieBDEtManga.values()) {
@@ -35,4 +35,4 @@ public enum SousCategorieBDEtManga {
         return ListeDesSousCategoriesBDEtManga;
 
     }
-    }
+}

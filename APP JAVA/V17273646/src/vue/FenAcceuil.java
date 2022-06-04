@@ -5,9 +5,6 @@
  */
 package vue;
 
-
-
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,15 +12,7 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import metier.CategorieProduit;
-import metier.CategorieProduitDAO;
-import metier.Produit;
-import metier.ProduitDAO;
-import metier.SousCategorieArtEtCulture;
-import metier.SousCategorieBDEtManga;
-import metier.SousCategorieJeunesse;
-import metier.SousCategorieLitterature;
-import metier.SousCategorieProduitDAO;
+import metier.*;
 
 /**
  *
@@ -40,29 +29,43 @@ public class FenAcceuil extends javax.swing.JFrame {
     private ComboBoxModel<String> modeleDesSousCategories;
     private List<Produit> lesProduitsTrouves;
 
-    
     public FenAcceuil() {
 
-        //initialisation des catégories --> a modifier pour aller recup infos dans bdd --> remplacer les valeurs
-        //que prend tabCategories par les données de la BDD ?
+        //Recupérer les catégories produit pour definir un model de combobox
         Object[] tabCategories = CategorieProduit.getLesCategoriesProduit().toArray();
         modeleDesCategories = new DefaultComboBoxModel(tabCategories);
 
+        //Tentative de gestion des catégories de la base de donné, ne marche pas
+        /*
+       Categorie.buffer.addAll(CategorieDAO.getAllCategories());
+       SousCategorie.buffer.addAll(SousCategorieDAO.getAllSousCat());
+       
+       modeleDesCategories = new DefaultComboBoxModel(
+               Categorie.buffer.toArray());
+         */
         // implémentation avec Master / Detail
         modeleDesSousCategories = new DefaultComboBoxModel<String>();
         lesProduitsTrouves = new ArrayList<>();
 
         initComponents();
+        // ClientDAO.init(table_client);
+
+        //On récupère dans la liste des produits les produits existants
         lesProduits = Produit.getListeDesProduits();
         Collections.sort(lesProduits);
 
     }
 
+    //méthode qui résoud l'erreur null
     double ParseDouble(String strNumber) {
-     if (strNumber.isEmpty()) return 0.00;
-     else return Double.parseDouble(strNumber);
-  
-}
+        if (strNumber.isEmpty()) {
+            return 0.00;
+        } else {
+            return Double.parseDouble(strNumber);
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,14 +134,24 @@ public class FenAcceuil extends javax.swing.JFrame {
         bt_cate_valider = new javax.swing.JButton();
         pan_promotions = new javax.swing.JPanel();
         pan_clients = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        lbl_pwd = new javax.swing.JLabel();
-        tf_pwd = new javax.swing.JPasswordField();
-        lbl_login = new javax.swing.JLabel();
-        tf_login = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        pan_rechercheProduits1 = new javax.swing.JPanel();
+        lbl_nomClient = new javax.swing.JLabel();
+        lbl_prenomClient = new javax.swing.JLabel();
+        tf_nomClient = new javax.swing.JTextField();
+        btn_ajouterClient = new javax.swing.JButton();
+        tf_prenomClient = new javax.swing.JTextField();
+        lbl_mdpClient = new javax.swing.JLabel();
+        lbl_mailClient = new javax.swing.JLabel();
+        tf_mdpClient = new javax.swing.JTextField();
+        tf_mailClient = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table_client = new javax.swing.JTable();
+        btn_supprimerClient = new javax.swing.JButton();
+        btn_modifierClient = new javax.swing.JButton();
+        btn_enregistrerClient = new javax.swing.JButton();
         mb_menu = new javax.swing.JMenuBar();
         m_fichier = new javax.swing.JMenu();
+        mi_produits = new javax.swing.JMenuItem();
         mi_categories = new javax.swing.JMenuItem();
         mi_promotions = new javax.swing.JMenuItem();
         mi_clients = new javax.swing.JMenuItem();
@@ -256,6 +269,11 @@ public class FenAcceuil extends javax.swing.JFrame {
         });
 
         cb_sousCategoriesAff.setModel(modeleDesSousCategories);
+        cb_sousCategoriesAff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_sousCategoriesAffActionPerformed(evt);
+            }
+        });
 
         tf_id.setEditable(false);
         tf_id.setBackground(new java.awt.Color(204, 204, 204));
@@ -428,17 +446,16 @@ public class FenAcceuil extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tf_seuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cb_enPromo)
-                        .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_prix)
-                            .addComponent(tf_prix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_enPromo)
-                            .addComponent(tf_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_stock)
-                            .addComponent(tf_prixReduit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_prixReduit)
-                            .addComponent(lbl_seuil))))
+                    .addComponent(cb_enPromo)
+                    .addGroup(pan_modifLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl_prix)
+                        .addComponent(tf_prix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_enPromo)
+                        .addComponent(tf_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_stock)
+                        .addComponent(tf_prixReduit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_prixReduit)
+                        .addComponent(lbl_seuil)))
                 .addContainerGap())
         );
 
@@ -510,7 +527,7 @@ public class FenAcceuil extends javax.swing.JFrame {
                     .addComponent(btn_ajouter)
                     .addComponent(btn_modif)
                     .addComponent(btn_modif1))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         tpan_accueil.addTab("Produits", pan_produits);
@@ -544,8 +561,18 @@ public class FenAcceuil extends javax.swing.JFrame {
         lbl_newSousCategorie2.setText("Nouvelle Sous-Catégorie :");
 
         bt_ajouterCatégorie2.setText("Ajouter la catégorie");
+        bt_ajouterCatégorie2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_ajouterCatégorie2ActionPerformed(evt);
+            }
+        });
 
         bt_supprimerSousCategorie2.setText("Supprimer la sous-catégorie");
+        bt_supprimerSousCategorie2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_supprimerSousCategorie2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panGestionCategorieLayout = new javax.swing.GroupLayout(panGestionCategorie);
         panGestionCategorie.setLayout(panGestionCategorieLayout);
@@ -637,7 +664,7 @@ public class FenAcceuil extends javax.swing.JFrame {
                 .addComponent(panGestionCategorie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bt_cate_valider)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addContainerGap(424, Short.MAX_VALUE))
         );
 
         tpan_accueil.addTab("Catégories", pan_categories);
@@ -650,71 +677,159 @@ public class FenAcceuil extends javax.swing.JFrame {
         );
         pan_promotionsLayout.setVerticalGroup(
             pan_promotionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 625, Short.MAX_VALUE)
+            .addGap(0, 787, Short.MAX_VALUE)
         );
 
         tpan_accueil.addTab("Promotions", pan_promotions);
 
-        lbl_pwd.setText("Mot de passe :");
+        pan_rechercheProduits1.setBorder(javax.swing.BorderFactory.createTitledBorder("Informations client"));
 
-        tf_pwd.setText("jPasswordField1");
+        lbl_nomClient.setText("Nom :");
 
-        lbl_login.setText("Login :");
+        lbl_prenomClient.setText("Prénom :");
 
-        tf_login.setText("                      ");
+        btn_ajouterClient.setText("Ajouter");
+        btn_ajouterClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_ajouterClientMouseClicked(evt);
+            }
+        });
+        btn_ajouterClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ajouterClientActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setText("(IHM à finir avec une JTable au TP4)");
+        lbl_mdpClient.setText("mdp :");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lbl_pwd)
-                        .addGap(26, 26, 26)
-                        .addComponent(tf_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(lbl_login))
-                        .addGap(18, 18, 18)
-                        .addComponent(tf_login, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        lbl_mailClient.setText("e-mail :");
+
+        javax.swing.GroupLayout pan_rechercheProduits1Layout = new javax.swing.GroupLayout(pan_rechercheProduits1);
+        pan_rechercheProduits1.setLayout(pan_rechercheProduits1Layout);
+        pan_rechercheProduits1Layout.setHorizontalGroup(
+            pan_rechercheProduits1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan_rechercheProduits1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(pan_rechercheProduits1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pan_rechercheProduits1Layout.createSequentialGroup()
+                        .addComponent(lbl_nomClient)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_nomClient, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pan_rechercheProduits1Layout.createSequentialGroup()
+                        .addComponent(lbl_mailClient, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_mailClient, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pan_rechercheProduits1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan_rechercheProduits1Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(lbl_prenomClient, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan_rechercheProduits1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_mdpClient)
+                        .addGap(14, 14, 14)))
+                .addGroup(pan_rechercheProduits1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tf_prenomClient, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pan_rechercheProduits1Layout.createSequentialGroup()
+                        .addComponent(tf_mdpClient, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(btn_ajouterClient)))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_login)
-                    .addComponent(tf_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_pwd)
-                    .addComponent(tf_pwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
+        pan_rechercheProduits1Layout.setVerticalGroup(
+            pan_rechercheProduits1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pan_rechercheProduits1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan_rechercheProduits1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_nomClient)
+                    .addComponent(tf_nomClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_prenomClient)
+                    .addComponent(tf_prenomClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pan_rechercheProduits1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan_rechercheProduits1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(pan_rechercheProduits1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tf_mailClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_mailClient)
+                            .addComponent(tf_mdpClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_mdpClient)))
+                    .addGroup(pan_rechercheProduits1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(btn_ajouterClient)))
+                .addGap(0, 23, Short.MAX_VALUE))
         );
+
+        table_client.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nom", "Prénom", "e-mail", "mdp"
+            }
+        ));
+        table_client.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_clientMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table_client);
+
+        btn_supprimerClient.setText("Supprimer");
+        btn_supprimerClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_supprimerClientActionPerformed(evt);
+            }
+        });
+
+        btn_modifierClient.setText("Modifier");
+        btn_modifierClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modifierClientActionPerformed(evt);
+            }
+        });
+
+        btn_enregistrerClient.setText("Enregistrer");
+        btn_enregistrerClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_enregistrerClientActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pan_clientsLayout = new javax.swing.GroupLayout(pan_clients);
         pan_clients.setLayout(pan_clientsLayout);
         pan_clientsLayout.setHorizontalGroup(
             pan_clientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan_clientsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_modifierClient)
+                .addGap(61, 61, 61)
+                .addComponent(btn_supprimerClient)
+                .addGap(64, 64, 64)
+                .addComponent(btn_enregistrerClient, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
             .addGroup(pan_clientsLayout.createSequentialGroup()
-                .addGap(338, 338, 338)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(288, Short.MAX_VALUE))
+                .addGap(124, 124, 124)
+                .addGroup(pan_clientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pan_rechercheProduits1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
         pan_clientsLayout.setVerticalGroup(
             pan_clientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pan_clientsLayout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(pan_rechercheProduits1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addGroup(pan_clientsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_supprimerClient)
+                    .addComponent(btn_modifierClient)
+                    .addComponent(btn_enregistrerClient))
+                .addGap(131, 131, 131))
         );
 
         tpan_accueil.addTab("Clients", pan_clients);
@@ -727,6 +842,19 @@ public class FenAcceuil extends javax.swing.JFrame {
                 m_fichierActionPerformed(evt);
             }
         });
+
+        mi_produits.setText("Gestion Produits");
+        mi_produits.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mi_produitsMouseClicked(evt);
+            }
+        });
+        mi_produits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mi_produitsActionPerformed(evt);
+            }
+        });
+        m_fichier.add(mi_produits);
 
         mi_categories.setText("Gestion Catégories");
         mi_categories.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -816,12 +944,7 @@ public class FenAcceuil extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void mi_categoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_categoriesActionPerformed
-        // TODO add your handling code here:
-        tpan_accueil.setSelectedComponent(pan_categories);
-    }//GEN-LAST:event_mi_categoriesActionPerformed
-    private void affecterDetailCBBox(String ch, JComboBox cbb) {
+private void affecterDetailCBBox(String ch, JComboBox cbb) {
         // cette méthode affecte la bonne liste de sous-catégories à la CBBox
         Object[] tabCategories;
         boolean flagErreurSousCategorie = false;
@@ -861,6 +984,12 @@ public class FenAcceuil extends javax.swing.JFrame {
             cbb.setVisible(false);
         }
     }
+
+    private void mi_categoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_categoriesActionPerformed
+        // TODO add your handling code here:
+        tpan_accueil.setSelectedComponent(pan_categories);
+    }//GEN-LAST:event_mi_categoriesActionPerformed
+
     private void mi_clientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_clientsActionPerformed
         // TODO add your handling code here:
         tpan_accueil.setSelectedComponent(pan_clients);
@@ -917,63 +1046,79 @@ public class FenAcceuil extends javax.swing.JFrame {
     }//GEN-LAST:event_m_fichierActionPerformed
 
     private void btn_supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supprimerActionPerformed
-        // TODO add your handling code here:
+        // suppression d'un produit dans la base de donnée:
         if (tf_id.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Veuillez selectionner un produit à supprimer.");
         } else {
             Produit test = new Produit(Integer.valueOf(tf_id.getText()));
-        ProduitDAO.supprimerProduit(test);
+            ProduitDAO.supprimerProduit(test);
 
         }
     }//GEN-LAST:event_btn_supprimerActionPerformed
-
+//Ne marche plus
     private void btn_modifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modifActionPerformed
-        // TODO add your handling code here:
-        /*if (tf_titreAff.getText().isEmpty() || tf_auteurAff.getText().isEmpty() || tf_editeurAff.getText().isEmpty() || tf_anneeEditionAff.getText().isEmpty() || tf_resume.getText().isEmpty() || tf_prix.getText().isEmpty() || tf_prixReduit.getText().isEmpty() || tf_enPromo.getText().isEmpty() || tf_stock.getText().isEmpty() || cb_categoriesAff.getSelectedItem().toString().isEmpty() || cb_sousCategoriesAff.getSelectedItem().toString().isEmpty()) {
+        // Modifier un produit (ne modifie pas les id catégorie et sous-catégorie):
+        if (tf_titreAff.getText().isEmpty() || tf_auteurAff.getText().isEmpty() || tf_editeurAff.getText().isEmpty() || tf_anneeEditionAff.getText().isEmpty() || tf_resume.getText().isEmpty() || tf_prix.getText().isEmpty() || tf_stock.getText().isEmpty()) {
 
             JOptionPane.showMessageDialog(this, "Il manque des informations.");
 
-        }//
-         else
-        {*/
-                
-        String titre= tf_titreAff.getText();
-        Double prix = Double.parseDouble(tf_prix.getText());
-        String description = tf_resume.getText();
-        String auteur = tf_auteurAff.getText();
-        String editeur = tf_editeurAff.getText();
-        int annee = Integer.parseInt(tf_anneeEditionAff.getText());
-        Double prixReduit = Double.parseDouble(tf_prixReduit.getText());
-        int quantite = Integer.parseInt(tf_stock.getText());
-        boolean enstock = true;
-        int seuil = Integer.parseInt(tf_seuil.getText());
-        
-        if (Integer.valueOf(tf_stock.getText()) < 0) enstock=false;
-        
-        String cat = cb_categoriesAff.getSelectedItem().toString();
-        int idCat = CategorieProduitDAO.findIdCategorieProduit((String) cat);
-     //   String souscat = cb_sousCategoriesAff.getSelectedItem().toString();
-        int idSousCat = SousCategorieProduitDAO.findIdSousCategorieProduitByIdCat(idCat);
-        
-        //OU//
-        
-        
-       // CategorieProduit cat = getCategorieFromString(cb_categoriesAff.getSelectedItem().toString())
-        
-        
+        } else {
 
-        Produit testid = new Produit(titre,prix,description ,auteur,editeur , annee,prixReduit,quantite, enstock, seuil, idCat, idSousCat,false);
-        ProduitDAO.updateProduit(testid);
+            String titre = tf_titreAff.getText();
+            Double prix = Double.parseDouble(tf_prix.getText());
+            String description = tf_resume.getText();
+            String auteur = tf_auteurAff.getText();
+            String editeur = tf_editeurAff.getText();
+            int annee = Integer.parseInt(tf_anneeEditionAff.getText());
+            Double prixReduit = Double.parseDouble(tf_prixReduit.getText());
+            int quantite = Integer.parseInt(tf_stock.getText());
+            boolean enstock = true;
+            int seuil = Integer.parseInt(tf_seuil.getText());
 
+            if (Integer.valueOf(tf_stock.getText()) < 0) {
+                enstock = false;
+            }
 
+            String cat = cb_categoriesAff.getSelectedItem().toString();
+            int idCat = CategorieProduitDAO.findIdCategorieProduit((String) cat);
+
+            int idSousCat = SousCategorieProduitDAO.findIdSousCategorieProduitByIdCat(idCat);
+
+            Produit testid = new Produit(titre, prix, description, auteur, editeur, annee, prixReduit, quantite, enstock, seuil, idCat, idSousCat, false);
+
+            /*String update ="UPDATE produit p SET titre=?,prix=?, resumé=?, auteur=?, editeur=?, "
+                    + "anne_edition=?, prix_reduit=?, stock=?, "
+                    + "seuil=?, en_promotion=? WHERE id_produit='" + tf_id.getText()+"'";
+           try{ 
+               conn = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
+               
+               PreparedStatement st = conn.prepareStatement(update);
+           st.setString(1, titre);
+
+            st.setDouble(2, prix);
+            st.setString(3, description);
+            st.setString(4, auteur);
+            st.setString(5, editeur);
+            st.setInt(6, annee);
+            st.setDouble(7, prixReduit);
+            st.setInt(8, quantite);
+            st.setInt(9,seuil);
+            st.setBoolean(10, false);
+            
+            st.execute();
+           }catch(SQLException e){
+               e.printStackTrace();
+               
+           }*/
+            ProduitDAO.updateProduit(testid);
+
+        }
     }//GEN-LAST:event_btn_modifActionPerformed
 
     private void btn_ajouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ajouterActionPerformed
-        // TODO add your handling code here: 
-   
-        
-        
-        String titre= tf_titreAff.getText();
+        // Ajoute un produit à la base de données: 
+
+        String titre = tf_titreAff.getText();
         double prix = Double.parseDouble(tf_prix.getText());
         String description = tf_resume.getText();
         String auteur = tf_auteurAff.getText();
@@ -983,25 +1128,32 @@ public class FenAcceuil extends javax.swing.JFrame {
         int quantite = Integer.parseInt(tf_stock.getText());
         boolean enstock = true;
         int seuil = Integer.parseInt(tf_seuil.getText());
+
+        if (Integer.valueOf(tf_stock.getText()) < 0) {
+            enstock = false;
+        }
+
+        //Tentatove d'implémentation de la bdd, ne marche pas
+        /*
+        Categorie cat = (Categorie) cb_categoriesAff.getSelectedItem();
+        int idCat = cat.getID();
+        int idCat = CategorieDAO.findIdCategorieProduit(cat.toString());
         
-        if (Integer.valueOf(tf_stock.getText()) < 0) enstock=false;
+        SousCategorie souscat = (SousCategorie)cb_sousCategoriesAff.getSelectedItem();
         
+       
+        SousCategorie.buffer.addAll(SousCategorieDAO.getAllSousCat());
+        int idSousCat = souscat.getID();
+         */
         String cat = cb_categoriesAff.getSelectedItem().toString();
         int idCat = CategorieProduitDAO.findIdCategorieProduit((String) cat);
-        String souscat = cb_sousCategoriesAff.getSelectedItem().toString();
         int idSousCat = SousCategorieProduitDAO.findIdSousCategorieProduitByIdCat(idCat);
         
+        boolean isenpromo = cb_enPromo.isSelected();
         
-        //OU//
-        
-        
-       // CategorieProduit cat = getCategorieFromString(cb_categoriesAff.getSelectedItem().toString())
-        boolean enPromo = false;
         
 
-        Produit testid = new Produit(titre,prix,description ,auteur,editeur , annee,prixReduit,quantite, enstock, seuil, idCat, idSousCat, false);
-       // Produit testCat = new Produit(titre,prix,description ,auteur,editeur , annee,prixReduit,quantite, enstock, seuil,getCategorieFromString(cb_categoriesAff.getSelectedItem().toString()) , souscat);
-
+        Produit testid = new Produit(titre, prix, description, auteur, editeur, annee, prixReduit, quantite, enstock, seuil, idCat, idSousCat, isenpromo);
         ProduitDAO.insertProduit(testid);
     }//GEN-LAST:event_btn_ajouterActionPerformed
 
@@ -1035,17 +1187,27 @@ public class FenAcceuil extends javax.swing.JFrame {
         // TODO add your handling code here:
         String laCategorie = (String) cb_categoriesAff.getSelectedItem();
         this.affecterDetailCBBox(laCategorie, cb_sousCategoriesAff);
+
+
     }//GEN-LAST:event_cb_categoriesAffActionPerformed
 
     private void cbb_categorieGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_categorieGestionActionPerformed
+        //Gère l'affichage des combobox sous-catégorie en fonction des catégories (pas connecté avec la bdd)
+
         String laCategorie = (String) cbb_categorieGestion.getSelectedItem();
         this.affecterDetailCBBox(laCategorie, cbb_sousCategorieGestion);
+
     }//GEN-LAST:event_cbb_categorieGestionActionPerformed
 
     private void bt_supprimerCategorie2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_supprimerCategorie2ActionPerformed
         // attention : on ne pourra supprimer la catégorie que s'il n'y a plus
         // aucun produit de cette catégorie
         // idée : afficher la liste des produits concernés
+        //Ne vérifie pas si la liste des produits est vide
+        //if (lesProduits.isEmpty()){
+        String cat = cbb_categorieGestion.getSelectedItem().toString();
+        CategorieProduitDAO.supprimerCategorie(cat);
+        // }
 
     }//GEN-LAST:event_bt_supprimerCategorie2ActionPerformed
 
@@ -1059,27 +1221,26 @@ public class FenAcceuil extends javax.swing.JFrame {
 
     private void btn_rechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rechercherActionPerformed
         // TODO add your handling code here:
-        //rajouter un message si le produit rechercher n'existe pas + eviter casse/MAJUSCULE
-        //ne trouve pas les produit déjà ajoutés
-       
-                Produit result = ProduitDAO.RechercheProduitByTitre(tf_titre.getText());
-                tf_id.setText(String.valueOf(result.getId())); 
-                tf_titreAff.setText(result.getTitre());
-                tf_prix.setText(String.valueOf(result.getPrix()));
-                tf_resume.setText(result.getDescription());
-                tf_auteurAff.setText(result.getAuteur());
-                tf_editeurAff.setText(result.getEditeur());
-                tf_anneeEditionAff.setText(String.valueOf(result.getAnnee()));
-                tf_prixReduit.setText(String.valueOf(result.getRemise()));
-                tf_stock.setText(String.valueOf(result.getQuantite()));
-                tf_seuil.setText(String.valueOf(result.getSeuil()));
-                cb_categoriesAff.setSelectedIndex(result.getIdCat());
-                cb_sousCategoriesAff.setSelectedItem(result.getSousCategorie()); //a trouver
-                cb_enPromo.isSelected();
-   
-                
-                
-       
+        //rajouter un message si le produit recherché n'existe pas 
+
+        Produit result = ProduitDAO.RechercheProduitByTitre(tf_titre.getText());
+        tf_id.setText(String.valueOf(result.getId()));
+        tf_titreAff.setText(result.getTitre());
+        tf_prix.setText(String.valueOf(result.getPrix()));
+        tf_resume.setText(result.getDescription());
+        tf_auteurAff.setText(result.getAuteur());
+        tf_editeurAff.setText(result.getEditeur());
+        tf_anneeEditionAff.setText(String.valueOf(result.getAnnee()));
+        tf_prixReduit.setText(String.valueOf(result.getRemise()));
+        tf_stock.setText(String.valueOf(result.getQuantite()));
+        tf_seuil.setText(String.valueOf(result.getSeuil()));
+        cb_categoriesAff.setSelectedIndex(result.getIdCat());
+        cb_sousCategoriesAff.setSelectedItem(result.getSousCategorie()); //a trouver
+        cb_enPromo.setSelected(result.isEnPromo());
+        
+
+
+
     }//GEN-LAST:event_btn_rechercherActionPerformed
 
     private void btn_effacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_effacerActionPerformed
@@ -1087,9 +1248,6 @@ public class FenAcceuil extends javax.swing.JFrame {
         tf_titre.setText("");
         cb_categories.setSelectedIndex(0);
         cb_sousCategories.setSelectedIndex(0);
-        //cb_sousCategories.removeAllItems();
-        cb_sousCategoriesAff.removeAllItems();
-        cb_categoriesAff.removeAllItems();
         tf_id.setText("");
         tf_titreAff.setText("");
         tf_auteurAff.setText("");
@@ -1115,6 +1273,7 @@ public class FenAcceuil extends javax.swing.JFrame {
         // TODO add your handling code here:
         // on définit le contenu de la comboBox des sous categories en
         // fonction de l'item selectionné
+
         String laCategorie = (String) cb_categories.getSelectedItem(); // getSelectedItem() renvoie un Object par defaut
         this.affecterDetailCBBox(laCategorie, cb_sousCategories);
 
@@ -1124,6 +1283,62 @@ public class FenAcceuil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cb_enPromoActionPerformed
 
+    private void btn_supprimerClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_supprimerClientActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_supprimerClientActionPerformed
+
+    private void btn_ajouterClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ajouterClientActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ajouterClientActionPerformed
+
+    private void btn_ajouterClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ajouterClientMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ajouterClientMouseClicked
+
+    private void btn_modifierClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modifierClientActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_modifierClientActionPerformed
+
+    private void btn_enregistrerClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enregistrerClientActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_enregistrerClientActionPerformed
+
+    private void table_clientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_clientMouseClicked
+        // TODO add your handling code here:
+        /* DefaultTableModel model = (DefaultTableModel)table_client.getModel();
+        int monIndex = table_client.getSelectedRow();
+        tf_nomClient.setText(model.getValueAt(monIndex, 0).toString());
+        tf_prenomClient.setText(model.getValueAt(monIndex, 1).toString());
+        tf_mailClient.setText(model.getValueAt(monIndex, 2).toString());
+        tf_mdpClient.setText(model.getValueAt(monIndex, 3).toString());*/
+
+    }//GEN-LAST:event_table_clientMouseClicked
+
+    private void mi_produitsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mi_produitsMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mi_produitsMouseClicked
+
+    private void mi_produitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mi_produitsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mi_produitsActionPerformed
+
+    private void cb_sousCategoriesAffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_sousCategoriesAffActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_sousCategoriesAffActionPerformed
+
+    private void bt_supprimerSousCategorie2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_supprimerSousCategorie2ActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_bt_supprimerSousCategorie2ActionPerformed
+
+    private void bt_ajouterCatégorie2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ajouterCatégorie2ActionPerformed
+        // TODO add your handling code here:
+        String cat = tf_newCategorie2.getText();
+        CategorieProduitDAO.insertCategorieProduit(cat);
+
+    }//GEN-LAST:event_bt_ajouterCatégorie2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_ajouterCatégorie2;
@@ -1132,11 +1347,15 @@ public class FenAcceuil extends javax.swing.JFrame {
     private javax.swing.JButton bt_supprimerCategorie2;
     private javax.swing.JButton bt_supprimerSousCategorie2;
     private javax.swing.JButton btn_ajouter;
+    private javax.swing.JButton btn_ajouterClient;
     private javax.swing.JButton btn_effacer;
+    private javax.swing.JButton btn_enregistrerClient;
     private javax.swing.JButton btn_modif;
     private javax.swing.JButton btn_modif1;
+    private javax.swing.JButton btn_modifierClient;
     private javax.swing.JButton btn_rechercher;
     private javax.swing.JButton btn_supprimer;
+    private javax.swing.JButton btn_supprimerClient;
     private javax.swing.JComboBox<String> cb_categories;
     private javax.swing.JComboBox<String> cb_categoriesAff;
     private javax.swing.JCheckBox cb_enPromo;
@@ -1144,9 +1363,8 @@ public class FenAcceuil extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_sousCategoriesAff;
     private javax.swing.JComboBox<String> cbb_categorieGestion;
     private javax.swing.JComboBox<String> cbb_sousCategorieGestion;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lbl_anneEdition;
@@ -1157,12 +1375,14 @@ public class FenAcceuil extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_editeur;
     private javax.swing.JLabel lbl_enPromo;
     private javax.swing.JLabel lbl_id;
-    private javax.swing.JLabel lbl_login;
+    private javax.swing.JLabel lbl_mailClient;
+    private javax.swing.JLabel lbl_mdpClient;
     private javax.swing.JLabel lbl_newCategorie2;
     private javax.swing.JLabel lbl_newSousCategorie2;
+    private javax.swing.JLabel lbl_nomClient;
+    private javax.swing.JLabel lbl_prenomClient;
     private javax.swing.JLabel lbl_prix;
     private javax.swing.JLabel lbl_prixReduit;
-    private javax.swing.JLabel lbl_pwd;
     private javax.swing.JLabel lbl_resume;
     private javax.swing.JLabel lbl_seuil;
     private javax.swing.JLabel lbl_sousCatAff;
@@ -1176,6 +1396,7 @@ public class FenAcceuil extends javax.swing.JFrame {
     private javax.swing.JMenuItem mi_categories;
     private javax.swing.JMenuItem mi_charger;
     private javax.swing.JMenuItem mi_clients;
+    private javax.swing.JMenuItem mi_produits;
     private javax.swing.JMenuItem mi_promotions;
     private javax.swing.JMenuItem mi_quitter;
     private javax.swing.JMenuItem mi_sauvegarder;
@@ -1187,16 +1408,20 @@ public class FenAcceuil extends javax.swing.JFrame {
     private javax.swing.JPanel pan_produits;
     private javax.swing.JPanel pan_promotions;
     private javax.swing.JPanel pan_rechercheProduits;
+    private javax.swing.JPanel pan_rechercheProduits1;
+    private javax.swing.JTable table_client;
     private javax.swing.JTextField tf_anneeEditionAff;
     private javax.swing.JTextField tf_auteurAff;
     private javax.swing.JTextField tf_editeurAff;
     private javax.swing.JTextField tf_id;
-    private javax.swing.JTextField tf_login;
+    private javax.swing.JTextField tf_mailClient;
+    private javax.swing.JTextField tf_mdpClient;
     private javax.swing.JTextField tf_newCategorie2;
     private javax.swing.JTextField tf_newSousCategorie2;
+    private javax.swing.JTextField tf_nomClient;
+    private javax.swing.JTextField tf_prenomClient;
     private javax.swing.JTextField tf_prix;
     private javax.swing.JTextField tf_prixReduit;
-    private javax.swing.JPasswordField tf_pwd;
     private javax.swing.JTextField tf_resume;
     private javax.swing.JTextField tf_seuil;
     private javax.swing.JTextField tf_stock;
